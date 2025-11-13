@@ -17,7 +17,7 @@ export const personalInfo = {
   email: "uttkarsh25tyagi@gmail.com",
   phone: "+91 9193399551",
   github: "https://github.com/tyxgx",
-  linkedin: "https://linkedin.com/in/uttkarsh-tyagi",
+  linkedin: "https://www.linkedin.com/in/uttkarsh-tyagi-038372246",
   cv: "/Uttkarsh_Tyagi_.pdf", // Update this path to your actual CV file
 };
 
@@ -30,7 +30,7 @@ export const navItems = [
 
 export const heroContent = {
   intro: "Hi, I'm Uttkarsh.",
-  tagline: "Passionate about building scalable systems and optimizing performance (Fresher).",
+  tagline: "Passionate about building scalable systems and optimizing performance.",
   description: "Fresher backend developer focused on crafting clean APIs, solid database logic, and real-time features.",
   cta: "Let's connect.",
 };
@@ -168,4 +168,3 @@ export const contactContent = {
 export const footerContent = {
   text: "© 2025 · Built by Uttkarsh Tyagi · Backend first.",
 };
-

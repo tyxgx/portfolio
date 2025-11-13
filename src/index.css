@@ -21,4 +21,15 @@
   .text-gradient {
     @apply bg-gradient-to-r from-accent-primary to-accent-secondary bg-clip-text text-transparent;
   }
+
+  /* Small perf helpers for smoother animations */
+  .will-change-transform {
+    will-change: transform;
+  }
+  .will-change-opacity {
+    will-change: opacity;
+  }
+  .contain-paint {
+    contain: paint;
+  }
 }

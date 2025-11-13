@@ -7,10 +7,10 @@ const Hero = () => {
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-8">
-      {/* Subtle Background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-primary/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-secondary/10 rounded-full blur-3xl" />
+      {/* Lightened Background (reduced blur to lower paint cost) */}
+      <div className="absolute inset-0 overflow-hidden contain-paint">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-primary/10 rounded-full blur-xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-secondary/10 rounded-full blur-xl" />
       </div>
 
       {/* Content Container */}
@@ -22,26 +22,26 @@ const Hero = () => {
             {/* Intro */}
             <div>
               <motion.h1
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4"
+                transition={{ duration: 0.45, ease: 'easeOut' }}
+                className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 transform-gpu will-change-transform will-change-opacity"
               >
                 {heroContent.intro}
               </motion.h1>
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-xl sm:text-2xl text-gray-300 mb-3"
+                transition={{ duration: 0.45, delay: 0.06, ease: 'easeOut' }}
+                className="text-xl sm:text-2xl text-gray-300 mb-3 transform-gpu will-change-transform will-change-opacity"
               >
                 {heroContent.tagline}
               </motion.p>
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-lg text-gray-400"
+                transition={{ duration: 0.45, delay: 0.12, ease: 'easeOut' }}
+                className="text-[1.15rem] sm:text-xl text-gray-400 transform-gpu will-change-transform will-change-opacity"
               >
                 {heroContent.description}
               </motion.p>
@@ -50,10 +50,10 @@ const Hero = () => {
             {/* Teamboard Project */}
             {teamboard && (
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="glass rounded-xl p-6 border border-accent-primary/20"
+                transition={{ duration: 0.5, delay: 0.18, ease: 'easeOut' }}
+                className="glass rounded-xl p-6 border border-accent-primary/20 transform-gpu will-change-transform will-change-opacity"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div>
@@ -108,10 +108,10 @@ const Hero = () => {
             {/* Notesy Project */}
             {notesy && (
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="glass rounded-xl p-4 border border-white/10"
+                transition={{ duration: 0.5, delay: 0.24, ease: 'easeOut' }}
+                className="glass rounded-xl p-4 border border-white/10 transform-gpu will-change-transform will-change-opacity"
               >
                 <div className="mb-2">
                   <h3 className="text-lg font-semibold mb-1">{notesy.title}</h3>
@@ -130,7 +130,7 @@ const Hero = () => {
                     href={notesy.codeLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-3 py-1.5 glass text-white rounded hover:bg-white/10 transition-all text-xs font-medium border border-white/20"
+                    className="px-3 py-1.5 bg-accent-primary text-white rounded-lg hover:bg-accent-primary/90 transition-all text-xs font-medium"
                   >
                     Github
                   </a>
@@ -150,10 +150,10 @@ const Hero = () => {
 
             {/* Internships */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="glass rounded-xl p-6 border border-accent-primary/20"
+              transition={{ duration: 0.5, delay: 0.3, ease: 'easeOut' }}
+              className="glass rounded-xl p-6 border border-accent-primary/20 transform-gpu will-change-transform will-change-opacity"
             >
               <h3 className="text-2xl font-bold mb-5">Internships</h3>
               <div className="space-y-6">
@@ -169,10 +169,10 @@ const Hero = () => {
 
             {/* Contact CTA */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className="glass rounded-xl p-6 border border-accent-primary/20 mx-auto max-w-md text-center"
+              transition={{ duration: 0.5, delay: 0.36, ease: 'easeOut' }}
+              className="glass rounded-xl p-6 border border-accent-primary/20 text-center w-full transform-gpu will-change-transform will-change-opacity"
             >
               <p className="text-lg font-medium mb-4">{heroContent.cta}</p>
               <div className="space-y-3">
