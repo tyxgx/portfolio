@@ -38,7 +38,7 @@ export const heroContent = {
 export const aboutContent = {
   text: `I'm a backend-focused developer building scalable server-side architectures, RESTful APIs, and real-time services. Experienced in authentication, database modeling, and cloud deployment.
 
-I've built production-ready systems like Teamboard (real-time messaging platform) and Notesy (sticky-notes application), implementing advanced features like WebSocket communication, multi-layer caching, role-based access control, and database optimizations.
+I've built production-ready systems like Teamboard (real-time messaging platform) and pdfdigest (PDF-to-Q&A assistant), implementing advanced features like WebSocket communication, multi-layer caching, role-based access control, and database optimizations.
 
 Currently pursuing my B.Tech in Information Technology and actively looking for backend-focused opportunities where I can contribute to building robust, scalable systems.`,
 };
@@ -93,19 +93,26 @@ export const projects = [
     featured: true,
   },
   {
-    id: 2,
-    title: "Notesy",
-    description: "A practice project - sticky notes app to learn REST APIs and authentication.",
-    shortDescription: "A focused sticky-notes board for capturing and organizing ideas quickly.",
-    technologies: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
-    highlights: [
-      "REST API with CRUD operations",
-      "JWT authentication",
-      "Search, filter, and pagination",
+    id: 3,
+    title: "pdfdigest",
+    description: "An end-to-end PDF-to-Q&A workflow that lets users upload documents, chunk and embed them, and chat through a Groq-powered UI with highlighted citations.",
+    shortDescription: "Upload a PDF, chunk it into searchable vectors, and chat over it with Groq-powered Llama 3 models, summaries, and highlighted context.",
+    technologies: [
+      "Next.js 13 (App Router)",
+      "FastAPI + Uvicorn",
+      "Groq Llama 3 Models",
+      "pdfplumber + Chunking",
+      "ChromaDB Vector Store",
     ],
-    codeLink: "https://github.com/tyxgx/Notes-API",
-    demoLink: "https://notes-api-livid-pi.vercel.app",
-    featured: false,
+    highlights: [
+      "Uploads any PDF, parses it with pdfplumber, and builds semantic chunks ready for retrieval",
+      "Stores embeddings in a persistent ChromaDB instance for fast, low-latency similarity search",
+      "LLM chat interface with Groq Llama 3 models, model switching, and inline summaries",
+      "Highlighted context references and auto-summary mode keep every answer grounded in source text",
+    ],
+    codeLink: "https://github.com/tyxgx/pdfdigest",
+    demoLink: "https://pdfdigest.vercel.app",
+    featured: true,
   },
 ];
 

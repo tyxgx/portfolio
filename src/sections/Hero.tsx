@@ -2,8 +2,8 @@ import { motion } from 'framer-motion';
 import { heroContent, personalInfo, projects, experience } from '../data/portfolio';
 
 const Hero = () => {
+  const pdfdigest = projects.find(p => p.id === 3);
   const teamboard = projects.find(p => p.id === 1);
-  const notesy = projects.find(p => p.id === 2);
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-8">
@@ -17,7 +17,7 @@ const Hero = () => {
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
           
-          {/* Left Column - Intro & Teamboard */}
+          {/* Left Column - Intro & Featured Project */}
           <div className="space-y-8">
             {/* Intro */}
             <div>
@@ -47,8 +47,8 @@ const Hero = () => {
               </motion.p>
             </div>
 
-            {/* Teamboard Project */}
-            {teamboard && (
+            {/* pdfdigest Project */}
+            {pdfdigest && (
               <motion.div
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -57,12 +57,12 @@ const Hero = () => {
               >
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <h3 className="text-2xl font-bold mb-1">{teamboard.title}</h3>
-                    <p className="text-gray-400 text-sm">{teamboard.shortDescription}</p>
+                    <h3 className="text-2xl font-bold mb-1">{pdfdigest.title}</h3>
+                    <p className="text-gray-400 text-sm">{pdfdigest.shortDescription}</p>
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {teamboard.technologies.slice(0, 4).map((tech, idx) => (
+                  {pdfdigest.technologies.slice(0, 5).map((tech, idx) => (
                     <span
                       key={idx}
                       className="px-2 py-1 bg-accent-primary/10 text-accent-primary rounded text-xs border border-accent-primary/20"
@@ -72,7 +72,7 @@ const Hero = () => {
                   ))}
                 </div>
                 <div className="space-y-1 mb-4">
-                  {teamboard.highlights.map((highlight, idx) => (
+                  {pdfdigest.highlights.map((highlight, idx) => (
                     <p key={idx} className="text-sm text-gray-400 flex items-start">
                       <span className="text-accent-primary mr-2">•</span>
                       <span>{highlight}</span>
@@ -81,16 +81,16 @@ const Hero = () => {
                 </div>
                 <div className="flex gap-3">
                   <a
-                    href={teamboard.codeLink}
+                    href={pdfdigest.codeLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-4 py-2 bg-accent-primary text-white rounded-lg hover:bg-accent-primary/90 transition-all text-sm font-medium"
                   >
                     Github
                   </a>
-                  {teamboard.demoLink && (
+                  {pdfdigest.demoLink && (
                     <a
-                      href={teamboard.demoLink}
+                      href={pdfdigest.demoLink}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="px-4 py-2 glass text-white rounded-lg hover:bg-white/10 transition-all text-sm font-medium border border-white/20"
@@ -103,10 +103,10 @@ const Hero = () => {
             )}
           </div>
 
-          {/* Right Column - Notesy, Internships, Contact */}
+          {/* Right Column - Teamboard, Internships, Contact */}
           <div className="space-y-6">
-            {/* Notesy Project */}
-            {notesy && (
+            {/* Teamboard Project */}
+            {teamboard && (
               <motion.div
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -114,11 +114,21 @@ const Hero = () => {
                 className="glass rounded-xl p-4 border border-white/10 transform-gpu will-change-transform will-change-opacity"
               >
                 <div className="mb-2">
-                  <h3 className="text-lg font-semibold mb-1">{notesy.title}</h3>
-                  <p className="text-gray-400 text-sm">{notesy.shortDescription}</p>
+                  <h3 className="text-lg font-semibold mb-1">{teamboard.title}</h3>
+                  <p className="text-gray-400 text-sm">{teamboard.shortDescription}</p>
+                </div>
+                <div className="flex flex-wrap gap-1.5 mb-3">
+                  {teamboard.technologies.map((tech, idx) => (
+                    <span
+                      key={idx}
+                      className="px-2 py-0.5 bg-accent-primary/10 text-accent-primary rounded text-[0.65rem] border border-accent-primary/20"
+                    >
+                      {tech}
+                    </span>
+                  ))}
                 </div>
                 <div className="space-y-1.5 mb-3">
-                  {notesy.highlights.slice(0, 2).map((h, idx) => (
+                  {teamboard.highlights.map((h, idx) => (
                     <p key={idx} className="text-xs text-gray-400 flex items-start">
                       <span className="text-accent-primary mr-2">•</span>
                       <span>{h}</span>
@@ -127,16 +137,16 @@ const Hero = () => {
                 </div>
                 <div className="flex gap-2">
                   <a
-                    href={notesy.codeLink}
+                    href={teamboard.codeLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-3 py-1.5 bg-accent-primary text-white rounded-lg hover:bg-accent-primary/90 transition-all text-xs font-medium"
                   >
                     Github
                   </a>
-                  {notesy.demoLink && (
+                  {teamboard.demoLink && (
                     <a
-                      href={notesy.demoLink}
+                      href={teamboard.demoLink}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="px-3 py-1.5 glass text-white rounded hover:bg-white/10 transition-all text-xs font-medium border border-white/20"
