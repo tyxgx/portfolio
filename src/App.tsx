@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Hero from './sections/Hero';
 import Footer from './sections/Footer';
 import ProjectsPage from './pages/ProjectsPage';
+import { routes } from './routes';
 
 function App() {
   return (
@@ -10,9 +11,9 @@ function App() {
       <Navbar />
       <main className="pt-16">
         <Routes>
-          <Route path="/" element={<Hero />} />
-          <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path={routes.home} element={<Hero />} />
+          <Route path={routes.projects} element={<ProjectsPage />} />
+          <Route path="*" element={<Navigate to={routes.home} replace />} />
         </Routes>
       </main>
       <Footer />
