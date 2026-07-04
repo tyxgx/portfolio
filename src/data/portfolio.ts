@@ -18,7 +18,7 @@ export const personalInfo = {
   phone: "+91 9193399551",
   github: "https://github.com/tyxgx",
   linkedin: "https://www.linkedin.com/in/uttkarsh-tyagi-038372246",
-  cv: "/Uttkarsh_Tyagi_.pdf", // Update this path to your actual CV file
+  cv: `${import.meta.env.BASE_URL}Uttkarsh_Tyagi_.pdf`, // Update this path to your actual CV file
 };
 
 export const navItems = [

@@ -2,10 +2,19 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <link rel="preload" as="image" href="/vite.svg" fetchpriority="high" />
-    <link rel="prefetch" as="document" type="application/pdf" href="/Uttkarsh_Tyagi_.pdf" />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%vite.svg" />
+    <link rel="preload" as="image" href="%BASE_URL%vite.svg" fetchpriority="high" />
+    <link rel="prefetch" as="document" type="application/pdf" href="%BASE_URL%Uttkarsh_Tyagi_.pdf" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function () {
+        var redirect = sessionStorage.getItem('portfolio.redirect');
+        if (redirect) {
+          sessionStorage.removeItem('portfolio.redirect');
+          history.replaceState(null, '', redirect);
+        }
+      })();
+    </script>
     <title>Uttkarsh Tyagi</title>
     <meta name="description" content="Backend-focused developer looking for an internship or junior role. Building REST APIs, real-time messaging systems, and production-ready backends." />
   </head>

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { personalInfo } from '../data/portfolio';
 
 const Navbar = () => {
@@ -13,12 +14,12 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           <div className="w-8 h-8" aria-hidden />
           <div className="flex items-center gap-3">
-            <a
-              href="/projects"
+            <Link
+              to="/projects"
               className="px-4 py-2 glass text-white rounded-lg hover:bg-white/10 transition-all text-sm font-medium border border-white/20"
             >
               Projects
-            </a>
+            </Link>
             <a
               href={personalInfo.cv}
               target="_blank"
