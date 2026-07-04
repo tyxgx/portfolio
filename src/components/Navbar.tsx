@@ -12,14 +12,22 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           <div className="w-8 h-8" aria-hidden />
-          <a
-            href={personalInfo.cv}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-4 py-2 bg-accent-primary text-white rounded-lg hover:bg-accent-primary/90 transition-all text-sm font-medium"
-          >
-            Download CV
-          </a>
+          <div className="flex items-center gap-3">
+            <a
+              href="/projects"
+              className="px-4 py-2 glass text-white rounded-lg hover:bg-white/10 transition-all text-sm font-medium border border-white/20"
+            >
+              Projects
+            </a>
+            <a
+              href={personalInfo.cv}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 bg-accent-primary text-white rounded-lg hover:bg-accent-primary/90 transition-all text-sm font-medium"
+            >
+              Download CV
+            </a>
+          </div>
         </div>
       </div>
     </motion.nav>
@@ -27,4 +35,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

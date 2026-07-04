@@ -1,0 +1,56 @@
+import type { ProjectConfig } from './types';
+
+export const projectConfig: ProjectConfig[] = [
+  {
+    id: 'yog-ai',
+    name: 'Yog AI',
+    repository: 'https://github.com/tyxgx/yog-ai',
+    status: 'In Progress',
+    techStack: [
+      'Python',
+      'FastAPI',
+      'RAG',
+      'LLMs',
+      'Sentence Transformers',
+      'Embeddings',
+      'ChromaDB',
+      'LlamaIndex',
+      'Semantic Search',
+    ],
+  },
+  {
+    id: 'spotify-analysis',
+    name: 'Spotify Data Analysis',
+    repository: 'https://github.com/tyxgx/spotify-analysis',
+    status: 'EDA Phase',
+    techStack: [
+      'Python',
+      'PySpark',
+      'Apache Spark',
+      'SQL',
+      'AWS S3',
+      'AWS Glue',
+      'AWS Athena',
+      'AWS IAM',
+      'Delta Lake',
+      'ETL Pipelines',
+      'Data Lake',
+      'Parquet',
+      'Pandas',
+    ],
+  },
+  {
+    id: 'pdfdigest',
+    name: 'PDF Digest',
+    repository: 'https://github.com/tyxgx/pdfdigest',
+    status: 'On Hold',
+    techStack: ['Next.js 13', 'FastAPI', 'Groq Llama 3', 'pdfplumber', 'ChromaDB'],
+  },
+  {
+    id: 'teamboard',
+    name: 'TeamBoard',
+    repository: 'https://github.com/tyxgx/teamboard',
+    status: 'On Hold',
+    techStack: ['Node.js', 'TypeScript', 'React', 'PostgreSQL', 'Socket.io', 'Prisma'],
+  },
+];
