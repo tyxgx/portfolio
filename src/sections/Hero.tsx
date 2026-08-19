@@ -2,8 +2,8 @@ import { motion } from 'framer-motion';
 import { heroContent, personalInfo, projects, experience } from '../data/portfolio';
 
 const Hero = () => {
-  const pdfdigest = projects.find(p => p.id === 3);
-  const teamboard = projects.find(p => p.id === 1);
+  const featured = projects.filter(p => p.featured);
+  const [mainProject, ...sideProjects] = featured;
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-8">
@@ -47,8 +47,8 @@ const Hero = () => {
               </motion.p>
             </div>
 
-            {/* pdfdigest Project */}
-            {pdfdigest && (
+            {/* Main featured project */}
+            {mainProject && (
               <motion.div
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -57,12 +57,12 @@ const Hero = () => {
               >
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <h3 className="text-2xl font-bold mb-1">{pdfdigest.title}</h3>
-                    <p className="text-gray-400 text-sm">{pdfdigest.shortDescription}</p>
+                    <h3 className="text-2xl font-bold mb-1">{mainProject.title}</h3>
+                    <p className="text-gray-400 text-sm">{mainProject.shortDescription}</p>
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {pdfdigest.technologies.slice(0, 5).map((tech, idx) => (
+                  {mainProject.technologies.slice(0, 5).map((tech, idx) => (
                     <span
                       key={idx}
                       className="px-2 py-1 bg-accent-primary/10 text-accent-primary rounded text-xs border border-accent-primary/20"
@@ -72,7 +72,7 @@ const Hero = () => {
                   ))}
                 </div>
                 <div className="space-y-1 mb-4">
-                  {pdfdigest.highlights.map((highlight, idx) => (
+                  {mainProject.highlights.map((highlight, idx) => (
                     <p key={idx} className="text-sm text-gray-400 flex items-start">
                       <span className="text-accent-primary mr-2">•</span>
                       <span>{highlight}</span>
@@ -81,16 +81,16 @@ const Hero = () => {
                 </div>
                 <div className="flex gap-3">
                   <a
-                    href={pdfdigest.codeLink}
+                    href={mainProject.codeLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-4 py-2 bg-accent-primary text-white rounded-lg hover:bg-accent-primary/90 transition-all text-sm font-medium"
                   >
                     Github
                   </a>
-                  {pdfdigest.demoLink && (
+                  {mainProject.demoLink && (
                     <a
-                      href={pdfdigest.demoLink}
+                      href={mainProject.demoLink}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="px-4 py-2 glass text-white rounded-lg hover:bg-white/10 transition-all text-sm font-medium border border-white/20"
@@ -103,22 +103,23 @@ const Hero = () => {
             )}
           </div>
 
-          {/* Right Column - Teamboard, Internships, Contact */}
+          {/* Right Column - Other featured projects, Internships, Contact */}
           <div className="space-y-6">
-            {/* Teamboard Project */}
-            {teamboard && (
+            {/* Other featured projects */}
+            {sideProjects.map((project, i) => (
               <motion.div
+                key={project.id}
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.24, ease: 'easeOut' }}
+                transition={{ duration: 0.5, delay: 0.24 + i * 0.04, ease: 'easeOut' }}
                 className="glass rounded-xl p-4 border border-white/10 transform-gpu will-change-transform will-change-opacity"
               >
                 <div className="mb-2">
-                  <h3 className="text-lg font-semibold mb-1">{teamboard.title}</h3>
-                  <p className="text-gray-400 text-sm">{teamboard.shortDescription}</p>
+                  <h3 className="text-lg font-semibold mb-1">{project.title}</h3>
+                  <p className="text-gray-400 text-sm">{project.shortDescription}</p>
                 </div>
                 <div className="flex flex-wrap gap-1.5 mb-3">
-                  {teamboard.technologies.map((tech, idx) => (
+                  {project.technologies.map((tech, idx) => (
                     <span
                       key={idx}
                       className="px-2 py-0.5 bg-accent-primary/10 text-accent-primary rounded text-[0.65rem] border border-accent-primary/20"
@@ -128,7 +129,7 @@ const Hero = () => {
                   ))}
                 </div>
                 <div className="space-y-1.5 mb-3">
-                  {teamboard.highlights.map((h, idx) => (
+                  {project.highlights.map((h, idx) => (
                     <p key={idx} className="text-xs text-gray-400 flex items-start">
                       <span className="text-accent-primary mr-2">•</span>
                       <span>{h}</span>
@@ -137,16 +138,16 @@ const Hero = () => {
                 </div>
                 <div className="flex gap-2">
                   <a
-                    href={teamboard.codeLink}
+                    href={project.codeLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-3 py-1.5 bg-accent-primary text-white rounded-lg hover:bg-accent-primary/90 transition-all text-xs font-medium"
                   >
                     Github
                   </a>
-                  {teamboard.demoLink && (
+                  {project.demoLink && (
                     <a
-                      href={teamboard.demoLink}
+                      href={project.demoLink}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="px-3 py-1.5 glass text-white rounded hover:bg-white/10 transition-all text-xs font-medium border border-white/20"
@@ -156,7 +157,7 @@ const Hero = () => {
                   )}
                 </div>
               </motion.div>
-            )}
+            ))}
 
             {/* Internships */}
             <motion.div

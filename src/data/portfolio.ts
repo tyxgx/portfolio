@@ -112,6 +112,22 @@ export const projects = [
     demoLink: "https://interactive-ml-kappa.vercel.app/",
     featured: true,
   },
+  {
+    id: 3,
+    title: "StreamPulse",
+    description: "A Django web app with a Spotify streaming-analytics dashboard and a RAG chatbot that answers natural-language questions grounded in real data, backed by Postgres + pgvector.",
+    shortDescription: "Spotify analytics dashboard and a pgvector-backed RAG chatbot with a confidence gate, a SQL router for aggregate questions, and a Groq/Gemini/Ollama LLM fallback chain.",
+    technologies: ["Django", "PostgreSQL", "pgvector", "SentenceTransformers", "Groq", "AWS EC2"],
+    highlights: [
+      "RAG pipeline: Gold data chunked into sentences, embedded with all-MiniLM-L6-v2, retrieved via pgvector's ivfflat index",
+      "Confidence gate refuses to answer instead of guessing when no relevant data is found",
+      "Keyword-routed SQL path answers aggregate questions ('which is highest') directly against Postgres instead of via RAG",
+      "Three-tier LLM fallback chain — Groq, then Gemini, then local Ollama — keeps the chatbot answering even if a provider's free tier is exhausted",
+    ],
+    codeLink: "https://github.com/tyxgx/streampulse",
+    demoLink: null,
+    featured: true,
+  },
 ];
 
 export const education = [
