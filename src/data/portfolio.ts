@@ -13,11 +13,11 @@
 
 export const personalInfo = {
   name: "Uttkarsh Tyagi",
-  role: "Backend-focused Developer",
+  role: "Data & Cloud Engineer",
   email: "uttkarsh25tyagi@gmail.com",
   phone: "+91 9193399551",
   github: "https://github.com/tyxgx",
-  linkedin: "https://www.linkedin.com/in/uttkarsh-tyagi-038372246",
+  linkedin: "https://www.linkedin.com/in/uttkarsh-tyagi-8579b7404",
   cv: `${import.meta.env.BASE_URL}Uttkarsh_Tyagi_.pdf`, // Update this path to your actual CV file
 };
 
@@ -30,93 +30,98 @@ export const navItems = [
 
 export const heroContent = {
   intro: "Hi, I'm Uttkarsh.",
-  tagline: "Passionate about building scalable systems and optimizing performance.",
-  description: "Fresher backend developer focused on crafting clean APIs, solid database logic, and real-time features.",
+  tagline: "Building streaming data pipelines, cloud-native ML systems, and production backend services.",
+  description: "Data & cloud-focused engineer — Python, AWS, Spark, and full-stack delivery.",
   cta: "Let's connect.",
 };
 
 export const aboutContent = {
-  text: `I'm a backend-focused developer building scalable server-side architectures, RESTful APIs, and real-time services. Experienced in authentication, database modeling, and cloud deployment.
+  text: `I'm a data & cloud-focused engineer building streaming data pipelines, cloud-native ML systems, and production-grade backend services. Comfortable across the stack: Python data/ML pipelines, AWS infrastructure via Terraform, and full-stack delivery.
 
-I've built production-ready systems like Teamboard (real-time messaging platform) and pdfdigest (PDF-to-Q&A assistant), implementing advanced features like WebSocket communication, multi-layer caching, role-based access control, and database optimizations.
+I've built production systems like liveflights (a real-time flight streaming lakehouse with a live serverless AWS deployment) and Interactive ML (a stage-by-stage ML pipeline explorer), covering everything from Spark/Kafka streaming and Delta Lake medallion architecture to Terraform-provisioned Lambda/S3/Step Functions infrastructure.
 
-Currently pursuing my B.Tech in Information Technology and actively looking for backend-focused opportunities where I can contribute to building robust, scalable systems.`,
+Recently completed C-DAC's PG Certificate Programme in Big Data Analytics (PGCP-BDA), on top of a B.Tech in Information Technology. Actively looking for Data Engineer, Cloud Engineer, ML Engineer, DevOps Engineer, or Python Developer roles.`,
 };
 
 export const skills = {
-  "Core Technologies": [
-    "JavaScript",
-    "TypeScript",
+  "Data Engineering": [
+    "Apache Spark",
+    "Kafka / Redpanda",
+    "dbt",
+    "Delta Lake",
+    "Medallion Architecture",
+    "Apache Airflow",
+  ],
+  "Cloud (AWS)": [
+    "Lambda",
+    "S3",
+    "API Gateway",
+    "Step Functions",
+    "EventBridge",
+    "Glue Data Catalog",
+    "IAM",
+    "Terraform",
+  ],
+  "Machine Learning": [
+    "scikit-learn",
+    "pandas",
+    "MLflow",
+    "Model Evaluation Pipelines",
+  ],
+  "Backend & DevOps": [
+    "Python",
+    "FastAPI",
     "Node.js",
-    "Express.js",
-    "React",
     "PostgreSQL",
     "MongoDB",
-    "Prisma ORM",
-    "SQL",
-  ],
-  "Backend Skills": [
-    "REST APIs",
-    "WebSockets (Socket.io)",
-    "JWT Auth",
-    "Google OAuth",
-    "RBAC",
-    "Caching",
-    "Database & Query Optimization",
-  ],
-  "Tools & Deployment": [
-    "Git/GitHub",
-    "Postman",
-    "Render",
-    "Vercel",
-    "HTML5",
-    "CSS3",
-    "Tailwind CSS",
+    "Docker",
+    "GitHub Actions (CI/CD)",
   ],
 };
 
 export const projects = [
   {
     id: 1,
-    title: "Teamboard",
-    description: "Real-time messaging platform I built to learn WebSockets and real-time systems.",
-    shortDescription: "A real-time messaging platform where team members can share ideas openly — anonymously or directly with admins — to foster a collaborative environment.",
-    technologies: ["Node.js", "TypeScript", "React", "PostgreSQL", "Socket.io", "Prisma"],
+    title: "liveflights",
+    description: "Real-time flight intelligence platform: live flight data streamed through Redpanda and Spark into a Delta lakehouse, modeled in dbt, scored by four ML models, and served to a Next.js dashboard — plus a live serverless AWS deployment of the same pipeline.",
+    shortDescription: "A streaming lakehouse for live aircraft data — Spark, Kafka-compatible streaming, Delta Lake medallion architecture, and a Terraform-provisioned serverless AWS deployment running live under a $5/month budget.",
+    technologies: ["Spark", "Redpanda", "Delta Lake", "dbt", "Terraform", "AWS Lambda", "MLflow", "FastAPI", "Next.js"],
     highlights: [
-      "Instant, real-time collaboration with a smooth live messaging flow",
-      "Smart client-side caching for consistently fast interactions",
-      "High-performance UI optimized to avoid unnecessary renders and stays responsive under load",
-      "Optimized data handling for a reliable, scalable backend",
+      "End-to-end streaming lakehouse: Redpanda → Spark Structured Streaming → medallion Delta Lake (bronze/silver/gold), modeled with dbt into Postgres marts",
+      "Fully serverless AWS replica deployed via Terraform — EventBridge-scheduled Lambda ingestion, Kinesis Firehose, S3 lake, Step Functions, Glue Data Catalog — live under a $5/month budget",
+      "Root-caused AWS account-level provisioning restrictions using IAM policy simulation and re-architected around them with zero downtime",
+      "Four purpose-built ML models (anomaly detection, forecasting, corridor/trajectory analysis) tracked via MLflow, served through a WebSocket-backed FastAPI + Next.js dashboard",
     ],
-    codeLink: "https://github.com/tyxgx/teamboard",
-    demoLink: "https://teamboard-delta.vercel.app",
+    codeLink: "https://github.com/tyxgx/liveflights",
+    demoLink: "https://liveflights-prod-site-922120357133.s3.us-east-1.amazonaws.com/index.html",
     featured: true,
   },
   {
-    id: 3,
-    title: "pdfdigest",
-    description: "An end-to-end PDF-to-Q&A workflow that lets users upload documents, chunk and embed them, and chat through a Groq-powered UI with highlighted citations.",
-    shortDescription: "Upload a PDF, chunk it into searchable vectors, and chat over it with Groq-powered Llama 3 models, summaries, and highlighted context.",
-    technologies: [
-      "Next.js 13 (App Router)",
-      "FastAPI + Uvicorn",
-      "Groq Llama 3 Models",
-      "pdfplumber + Chunking",
-      "ChromaDB Vector Store",
-    ],
+    id: 2,
+    title: "Interactive ML",
+    description: "An educational ML platform that exposes every stage of a scikit-learn pipeline — load, split, preprocess, train, predict, evaluate — as an independently inspectable step, instead of a single black-box predict button.",
+    shortDescription: "A stage-by-stage ML pipeline explorer with leakage-safe preprocessing and fair multi-algorithm comparison, for built-in datasets or your own uploaded CSV.",
+    technologies: ["FastAPI", "scikit-learn", "pandas", "Next.js", "TypeScript", "Tailwind CSS"],
     highlights: [
-      "Uploads any PDF, parses it with pdfplumber, and builds semantic chunks ready for retrieval",
-      "Stores embeddings in a persistent ChromaDB instance for fast, low-latency similarity search",
-      "LLM chat interface with Groq Llama 3 models, model switching, and inline summaries",
-      "Highlighted context references and auto-summary mode keep every answer grounded in source text",
+      "Every pipeline stage runs as an independent, inspectable step — or the whole pipeline in one click",
+      "Leakage-safe preprocessing: the ColumnTransformer is fit only on the training split, never the test split",
+      "Fair multi-algorithm comparison — every candidate algorithm is scored against an identical train/test split",
+      "Schema-driven auto-preprocessing routes built-in datasets and uploaded CSVs through the same code path",
     ],
-    codeLink: "https://github.com/tyxgx/pdfdigest",
-    demoLink: "https://pdfdigest.vercel.app",
+    codeLink: "https://github.com/tyxgx/interactive-ml",
+    demoLink: "https://interactive-ml-kappa.vercel.app/",
     featured: true,
   },
 ];
 
 export const education = [
+  {
+    id: 0,
+    institution: "C-DAC (Centre for Development of Advanced Computing)",
+    degree: "PG Certificate Programme in Big Data Analytics (PGCP-BDA)",
+    period: "Feb 2026 - Aug 2026",
+    details: "",
+  },
   {
     id: 1,
     institution: "Uttarakhand Technical University, Dehradun",
@@ -158,12 +163,12 @@ export const experience = [
 ];
 
 export const ctaContent = {
-  heading: "Currently looking for backend opportunities",
-  description: `I'm actively looking for a backend-focused internship or junior backend developer role.
+  heading: "Currently looking for Data/Cloud/ML/DevOps opportunities",
+  description: `I'm actively looking for Data Engineer, Cloud Engineer, ML Engineer, DevOps Engineer, or Python Developer roles.
 
-I enjoy working on REST APIs, real-time messaging features, and database design and performance.
+I enjoy building streaming data pipelines, cloud infrastructure, and production ML systems end to end.
 
-Open to remote and on-site roles across India.`,
+Open to relocation across India.`,
 };
 
 export const contactContent = {
@@ -173,5 +178,5 @@ export const contactContent = {
 };
 
 export const footerContent = {
-  text: "© 2025 · Built by Uttkarsh Tyagi · Backend first.",
+  text: "© 2026 · Built by Uttkarsh Tyagi.",
 };
