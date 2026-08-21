@@ -1,12 +1,9 @@
 import { motion } from 'framer-motion';
-import { heroContent, personalInfo, projects, experience } from '../data/portfolio';
+import { heroContent, personalInfo, experience } from '../data/portfolio';
 
 const Hero = () => {
-  const featured = projects.filter(p => p.featured);
-  const [mainProject, ...sideProjects] = featured;
-
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-8">
+    <section id="hero" className="relative min-h-[85vh] flex items-center justify-center overflow-hidden pt-20 pb-8">
       {/* Lightened Background (reduced blur to lower paint cost) */}
       <div className="absolute inset-0 overflow-hidden contain-paint">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-primary/10 rounded-full blur-xl" />
@@ -16,154 +13,64 @@ const Hero = () => {
       {/* Content Container */}
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-          
-          {/* Left Column - Intro & Featured Project */}
-          <div className="space-y-8">
-            {/* Intro */}
-            <div>
-              <motion.h1
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, ease: 'easeOut' }}
-                className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 transform-gpu will-change-transform will-change-opacity"
-              >
-                {heroContent.intro}
-              </motion.h1>
-              <motion.p
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: 0.06, ease: 'easeOut' }}
-                className="text-xl sm:text-2xl text-gray-300 mb-3 transform-gpu will-change-transform will-change-opacity"
-              >
-                {heroContent.tagline}
-              </motion.p>
-              <motion.p
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: 0.12, ease: 'easeOut' }}
-                className="text-[1.15rem] sm:text-xl text-gray-400 transform-gpu will-change-transform will-change-opacity"
-              >
-                {heroContent.description}
-              </motion.p>
-            </div>
 
-            {/* Main featured project */}
-            {mainProject && (
-              <motion.div
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.18, ease: 'easeOut' }}
-                className="glass rounded-xl p-6 border border-accent-primary/20 transform-gpu will-change-transform will-change-opacity"
+          {/* Left Column - Intro */}
+          <div className="space-y-6">
+            <motion.h1
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, ease: 'easeOut' }}
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 transform-gpu will-change-transform will-change-opacity"
+            >
+              {heroContent.intro}
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: 0.06, ease: 'easeOut' }}
+              className="text-xl sm:text-2xl text-gray-300 mb-3 transform-gpu will-change-transform will-change-opacity"
+            >
+              {heroContent.tagline}
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: 0.12, ease: 'easeOut' }}
+              className="text-[1.15rem] sm:text-xl text-gray-400 transform-gpu will-change-transform will-change-opacity"
+            >
+              {heroContent.description}
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: 0.18, ease: 'easeOut' }}
+              className="flex flex-wrap gap-3 pt-2"
+            >
+              <a
+                href="#projects"
+                className="px-5 py-3 bg-accent-primary text-white rounded-lg hover:bg-accent-primary/90 transition-all text-sm font-medium"
               >
-                <div className="flex items-start justify-between mb-3">
-                  <div>
-                    <h3 className="text-2xl font-bold mb-1">{mainProject.title}</h3>
-                    <p className="text-gray-400 text-sm">{mainProject.shortDescription}</p>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {mainProject.technologies.slice(0, 5).map((tech, idx) => (
-                    <span
-                      key={idx}
-                      className="px-2 py-1 bg-accent-primary/10 text-accent-primary rounded text-xs border border-accent-primary/20"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-                <div className="space-y-1 mb-4">
-                  {mainProject.highlights.map((highlight, idx) => (
-                    <p key={idx} className="text-sm text-gray-400 flex items-start">
-                      <span className="text-accent-primary mr-2">•</span>
-                      <span>{highlight}</span>
-                    </p>
-                  ))}
-                </div>
-                <div className="flex gap-3">
-                  <a
-                    href={mainProject.codeLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-4 py-2 bg-accent-primary text-white rounded-lg hover:bg-accent-primary/90 transition-all text-sm font-medium"
-                  >
-                    Github
-                  </a>
-                  {mainProject.demoLink && (
-                    <a
-                      href={mainProject.demoLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-4 py-2 glass text-white rounded-lg hover:bg-white/10 transition-all text-sm font-medium border border-white/20"
-                    >
-                      Live Link
-                    </a>
-                  )}
-                </div>
-              </motion.div>
-            )}
+                See the work
+              </a>
+              <a
+                href={personalInfo.cv}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-5 py-3 glass text-white rounded-lg hover:bg-white/10 transition-all text-sm font-medium border border-white/20"
+              >
+                Download CV
+              </a>
+            </motion.div>
           </div>
 
-          {/* Right Column - Other featured projects, Internships, Contact */}
+          {/* Right Column - Internships, Contact */}
           <div className="space-y-6">
-            {/* Other featured projects */}
-            {sideProjects.map((project, i) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.24 + i * 0.04, ease: 'easeOut' }}
-                className="glass rounded-xl p-4 border border-white/10 transform-gpu will-change-transform will-change-opacity"
-              >
-                <div className="mb-2">
-                  <h3 className="text-lg font-semibold mb-1">{project.title}</h3>
-                  <p className="text-gray-400 text-sm">{project.shortDescription}</p>
-                </div>
-                <div className="flex flex-wrap gap-1.5 mb-3">
-                  {project.technologies.map((tech, idx) => (
-                    <span
-                      key={idx}
-                      className="px-2 py-0.5 bg-accent-primary/10 text-accent-primary rounded text-[0.65rem] border border-accent-primary/20"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-                <div className="space-y-1.5 mb-3">
-                  {project.highlights.map((h, idx) => (
-                    <p key={idx} className="text-xs text-gray-400 flex items-start">
-                      <span className="text-accent-primary mr-2">•</span>
-                      <span>{h}</span>
-                    </p>
-                  ))}
-                </div>
-                <div className="flex gap-2">
-                  <a
-                    href={project.codeLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-3 py-1.5 bg-accent-primary text-white rounded-lg hover:bg-accent-primary/90 transition-all text-xs font-medium"
-                  >
-                    Github
-                  </a>
-                  {project.demoLink && (
-                    <a
-                      href={project.demoLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-3 py-1.5 glass text-white rounded hover:bg-white/10 transition-all text-xs font-medium border border-white/20"
-                    >
-                      Live
-                    </a>
-                  )}
-                </div>
-              </motion.div>
-            ))}
-
             {/* Internships */}
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3, ease: 'easeOut' }}
+              transition={{ duration: 0.5, delay: 0.24, ease: 'easeOut' }}
               className="glass rounded-xl p-6 border border-accent-primary/20 transform-gpu will-change-transform will-change-opacity"
             >
               <h3 className="text-2xl font-bold mb-5">Internships</h3>
@@ -182,7 +89,7 @@ const Hero = () => {
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.36, ease: 'easeOut' }}
+              transition={{ duration: 0.5, delay: 0.3, ease: 'easeOut' }}
               className="glass rounded-xl p-6 border border-accent-primary/20 text-center w-full transform-gpu will-change-transform will-change-opacity"
             >
               <p className="text-lg font-medium mb-4">{heroContent.cta}</p>

@@ -4,6 +4,7 @@ interface ProjectCardProps {
   title: string;
   description: string;
   technologies?: string[];
+  roleTags?: string[];
   bullets: string[];
   codeLink: string;
   demoLink: string | null;
@@ -14,6 +15,7 @@ const ProjectCard = ({
   title,
   description,
   technologies,
+  roleTags,
   bullets,
   codeLink,
   demoLink,
@@ -25,32 +27,38 @@ const ProjectCard = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      whileHover={{ y: -8, scale: 1.02 }}
-      className={`glass rounded-2xl p-6 sm:p-8 ${
+      whileHover={{ y: -8, scale: 1.01 }}
+      className={`glass rounded-2xl p-6 sm:p-8 flex flex-col h-full transform-gpu ${
         featured ? 'md:col-span-2 border-2 border-accent-primary/30' : ''
       }`}
     >
-      {featured && (
-        <span className="inline-block px-3 py-1 bg-accent-primary/20 text-accent-primary rounded-full text-xs font-medium mb-4">
-          Featured
-        </span>
+      {roleTags && roleTags.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-4">
+          {roleTags.map((role) => (
+            <span
+              key={role}
+              className="inline-block px-3 py-1 bg-accent-primary/20 text-accent-primary rounded-full text-xs font-medium"
+            >
+              {role}
+            </span>
+          ))}
+        </div>
       )}
       <h3 className="text-2xl font-bold mb-3">{title}</h3>
       <p className="text-gray-300 mb-3">{description}</p>
       {technologies && technologies.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-4">
-          <span className="text-xs text-gray-400 font-medium">Technologies:</span>
           {technologies.map((tech, index) => (
             <span
               key={index}
-              className="px-2 py-1 bg-accent-primary/10 text-accent-primary rounded text-xs border border-accent-primary/20"
+              className="px-2 py-1 bg-white/5 text-gray-300 rounded text-xs border border-white/10"
             >
               {tech}
             </span>
           ))}
         </div>
       )}
-      <ul className="space-y-2 mb-6">
+      <ul className="space-y-2 mb-6 flex-1">
         {bullets.map((bullet, index) => (
           <li key={index} className="flex items-start text-gray-400 text-sm">
             <span className="text-accent-primary mr-2">•</span>
@@ -58,7 +66,7 @@ const ProjectCard = ({
           </li>
         ))}
       </ul>
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-3 mt-auto">
         <a
           href={codeLink}
           target="_blank"
@@ -83,4 +91,3 @@ const ProjectCard = ({
 };
 
 export default ProjectCard;
-
