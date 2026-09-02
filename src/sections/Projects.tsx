@@ -1,29 +1,26 @@
 import Section from '../components/Section';
+import FeaturedProject from '../components/FeaturedProject';
 import ProjectCard from '../components/ProjectCard';
 import { projects } from '../data/portfolio';
 
 const Projects = () => {
+  const featured = projects.find((p) => p.featured);
+  const rest = projects.filter((p) => !p.featured);
+
   return (
-    <Section id="projects" className="pt-8">
-      <div className="mb-10 text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold mb-3">Shipped, not slides</h2>
-        <p className="text-gray-400 max-w-2xl mx-auto">
-          Five production systems, five different stacks. Each one links straight to the code and a live deployment — judge the work directly.
+    <Section id="projects" className="border-t border-line">
+      <div className="mb-10">
+        <h2 className="font-display text-2xl sm:text-3xl font-semibold text-ink mb-3">Some things I've built</h2>
+        <p className="text-ink-muted max-w-[60ch]">
+          Five projects, five different stacks. Each links to the code, and most have a live demo.
         </p>
       </div>
-      <div className="grid md:grid-cols-2 gap-6">
-        {projects.map((project) => (
-          <ProjectCard
-            key={project.id}
-            title={project.title}
-            description={project.shortDescription}
-            technologies={project.technologies}
-            roleTags={project.roleTags}
-            bullets={project.highlights}
-            codeLink={project.codeLink}
-            demoLink={project.demoLink}
-            featured={project.featured}
-          />
+
+      {featured && <FeaturedProject project={featured} />}
+
+      <div className="grid sm:grid-cols-2 gap-6">
+        {rest.map((project, i) => (
+          <ProjectCard key={project.id} project={project} delay={i * 0.06} />
         ))}
       </div>
     </Section>

@@ -1,90 +1,71 @@
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
+import { GithubLogo, ArrowUpRight } from '@phosphor-icons/react';
+import type { Project } from '../data/portfolio';
 
 interface ProjectCardProps {
-  title: string;
-  description: string;
-  technologies?: string[];
-  roleTags?: string[];
-  bullets: string[];
-  codeLink: string;
-  demoLink: string | null;
-  featured?: boolean;
+  project: Project;
+  delay?: number;
 }
 
-const ProjectCard = ({
-  title,
-  description,
-  technologies,
-  roleTags,
-  bullets,
-  codeLink,
-  demoLink,
-  featured = false,
-}: ProjectCardProps) => {
+const ProjectCard = ({ project, delay = 0 }: ProjectCardProps) => {
+  const reduce = useReducedMotion();
+  const { title, shortDescription, technologies, roleTags, codeLink, demoLink, images } = project;
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={reduce ? false : { opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-      whileHover={{ y: -8, scale: 1.01 }}
-      className={`glass rounded-2xl p-6 sm:p-8 flex flex-col h-full transform-gpu ${
-        featured ? 'md:col-span-2 border-2 border-accent-primary/30' : ''
-      }`}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.5, delay, ease: [0.16, 1, 0.3, 1] }}
+      className="panel flex flex-col overflow-hidden h-full"
     >
-      {roleTags && roleTags.length > 0 && (
-        <div className="flex flex-wrap gap-2 mb-4">
-          {roleTags.map((role) => (
-            <span
-              key={role}
-              className="inline-block px-3 py-1 bg-accent-primary/20 text-accent-primary rounded-full text-xs font-medium"
-            >
+      {images.length > 0 ? (
+        <div className="relative aspect-[16/10] overflow-hidden border-b border-line">
+          <img src={images[0]} alt={`${title} screenshot`} className="w-full h-full object-cover" loading="lazy" />
+        </div>
+      ) : (
+        <div className="relative aspect-[16/10] overflow-hidden border-b border-line bg-gradient-to-br from-accent/15 via-surface-raised to-surface-raised flex items-center justify-center">
+          <span className="font-display text-3xl font-semibold text-accent/40">{title.slice(0, 2).toUpperCase()}</span>
+        </div>
+      )}
+
+      <div className="p-6 flex flex-col flex-1">
+        <div className="flex flex-wrap gap-2 mb-3">
+          {roleTags.slice(0, 2).map((role) => (
+            <span key={role} className="tag">
               {role}
             </span>
           ))}
         </div>
-      )}
-      <h3 className="text-2xl font-bold mb-3">{title}</h3>
-      <p className="text-gray-300 mb-3">{description}</p>
-      {technologies && technologies.length > 0 && (
-        <div className="flex flex-wrap gap-2 mb-4">
-          {technologies.map((tech, index) => (
-            <span
-              key={index}
-              className="px-2 py-1 bg-white/5 text-gray-300 rounded text-xs border border-white/10"
-            >
+        <h3 className="font-display text-xl font-semibold text-ink mb-2">{title}</h3>
+        <p className="text-sm text-ink-muted leading-relaxed mb-4">{shortDescription}</p>
+        <div className="flex flex-wrap gap-x-3 gap-y-1 mb-5">
+          {technologies.slice(0, 5).map((tech) => (
+            <span key={tech} className="font-mono text-xs text-ink-faint">
               {tech}
             </span>
           ))}
         </div>
-      )}
-      <ul className="space-y-2 mb-6 flex-1">
-        {bullets.map((bullet, index) => (
-          <li key={index} className="flex items-start text-gray-400 text-sm">
-            <span className="text-accent-primary mr-2">•</span>
-            <span>{bullet}</span>
-          </li>
-        ))}
-      </ul>
-      <div className="flex flex-wrap gap-3 mt-auto">
-        <a
-          href={codeLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="px-4 py-2 bg-accent-primary text-white rounded-lg hover:bg-accent-primary/90 transition-all hover:scale-105 text-sm font-medium"
-        >
-          Github
-        </a>
-        {demoLink && (
+        <div className="mt-auto flex items-center gap-4 pt-2">
           <a
-            href={demoLink}
+            href={codeLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2 glass text-white rounded-lg hover:bg-white/10 transition-all hover:scale-105 text-sm font-medium border border-white/20"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-ink hover:text-accent transition-colors"
           >
-            Live Link
+            <GithubLogo size={16} /> Code
           </a>
-        )}
+          {demoLink && (
+            <a
+              href={demoLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-ink hover:text-accent transition-colors"
+            >
+              Live <ArrowUpRight size={16} />
+            </a>
+          )}
+        </div>
       </div>
     </motion.div>
   );
