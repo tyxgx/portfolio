@@ -13,11 +13,18 @@ const FeaturedProject = ({ project }: { project: Project }) => {
       className="panel overflow-hidden mb-6"
     >
       <div className="grid lg:grid-cols-2">
-        <div className="relative aspect-[16/10] lg:aspect-auto overflow-hidden border-b lg:border-b-0 lg:border-r border-line">
+        {/* object-contain, not cover: this is a screenshot of a real UI, not
+            a photo. Cropping it (the old lg:aspect-auto + object-cover combo
+            let the container's height collapse to whatever the text column
+            needed, then cover cropped however much width that forced,
+            chopping the whole left sidebar off the dashboard screenshot on
+            wide viewports) can cut off content that matters. Fixed aspect
+            ratio + contain always shows the full image. */}
+        <div className="relative aspect-[16/10] overflow-hidden border-b lg:border-b-0 lg:border-r border-line bg-surface">
           <img
             src={project.images[0]}
             alt={`${project.title} dashboard screenshot`}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
             loading="lazy"
           />
         </div>
