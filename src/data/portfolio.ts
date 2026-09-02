@@ -118,7 +118,7 @@ export const projects: Project[] = [
     codeLink: "https://github.com/tyxgx/streampulse",
     demoLink: "https://streampulse-tyxgx.duckdns.org",
     featured: false,
-    images: [],
+    images: [shot('streampulse-chatbot.jpg')],
   },
   {
     id: 3,
