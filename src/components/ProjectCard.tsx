@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion';
-import { GithubLogo, ArrowUpRight } from '@phosphor-icons/react';
+import { GithubLogo, ArrowUpRight, Graph } from '@phosphor-icons/react';
 import type { Project } from '../data/portfolio';
 
 interface ProjectCardProps {
@@ -9,7 +9,7 @@ interface ProjectCardProps {
 
 const ProjectCard = ({ project, delay = 0 }: ProjectCardProps) => {
   const reduce = useReducedMotion();
-  const { title, shortDescription, technologies, roleTags, codeLink, demoLink, images } = project;
+  const { title, shortDescription, technologies, roleTags, codeLink, demoLink, architectureLink, images } = project;
 
   return (
     <motion.div
@@ -63,6 +63,16 @@ const ProjectCard = ({ project, delay = 0 }: ProjectCardProps) => {
               className="inline-flex items-center gap-1.5 text-sm font-medium text-ink hover:text-accent transition-colors"
             >
               Live <ArrowUpRight size={16} />
+            </a>
+          )}
+          {architectureLink && (
+            <a
+              href={architectureLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-ink hover:text-accent transition-colors"
+            >
+              <Graph size={16} /> Architecture
             </a>
           )}
         </div>
