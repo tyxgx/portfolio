@@ -23,7 +23,7 @@ const Hero = () => {
         };
 
   return (
-    <section id="hero" className="relative pt-24 pb-16 sm:pb-20 overflow-hidden">
+    <section id="hero" className="relative pt-16 pb-10 sm:pb-14 overflow-hidden">
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-[1.1fr_1fr] gap-10 lg:gap-16 items-center">
           {/* Text column */}

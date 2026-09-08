@@ -4,7 +4,7 @@ import { ctaContent, personalInfo } from '../data/portfolio';
 
 const Contact = () => {
   return (
-    <Section id="contact" className="border-t border-line pb-24">
+    <Section id="contact" className="border-t border-line pb-14">
       <div className="panel p-8 sm:p-14 text-center max-w-3xl mx-auto">
         <h2 className="font-display text-3xl sm:text-4xl font-semibold text-ink mb-4">{ctaContent.heading}</h2>
         <p className="text-ink-muted mb-8 max-w-[52ch] mx-auto leading-relaxed">{ctaContent.description}</p>

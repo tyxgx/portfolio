@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion';
-import { GithubLogo, ArrowUpRight } from '@phosphor-icons/react';
+import { GithubLogo, ArrowUpRight, Graph } from '@phosphor-icons/react';
 import type { Project } from '../data/portfolio';
 
 const FeaturedProject = ({ project }: { project: Project }) => {
@@ -63,6 +63,16 @@ const FeaturedProject = ({ project }: { project: Project }) => {
                 className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-accent text-surface text-sm font-semibold hover:bg-accent-soft transition-colors"
               >
                 Live demo <ArrowUpRight size={16} />
+              </a>
+            )}
+            {project.architectureLink && (
+              <a
+                href={project.architectureLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-line text-sm font-medium text-ink hover:border-accent/50 hover:text-accent transition-colors"
+              >
+                <Graph size={16} /> Architecture
               </a>
             )}
           </div>

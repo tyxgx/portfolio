@@ -75,6 +75,7 @@ export interface Project {
   highlights: string[];
   codeLink: string;
   demoLink: string | null;
+  architectureLink?: string;
   featured: boolean;
   images: string[];
 }
@@ -97,6 +98,7 @@ export const projects: Project[] = [
     ],
     codeLink: "https://github.com/tyxgx/liveflights",
     demoLink: "https://liveflights-prod-site-922120357133.s3.us-east-1.amazonaws.com/index.html",
+    architectureLink: `${import.meta.env.BASE_URL}diagrams/liveflights-architecture.html`,
     featured: true,
     images: [shot('liveflights-dashboard.png'), shot('liveflights-corridors.png')],
   },

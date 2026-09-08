@@ -88,7 +88,7 @@ const ProjectsPage = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[100dvh] pt-32 pb-16 px-4 sm:px-6 lg:px-8">
+    <section className="relative min-h-[100dvh] pt-24 pb-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-content mx-auto">
         <div className="mb-8">
           <h1 className="font-display text-2xl sm:text-3xl font-semibold text-ink mb-2">Project activity</h1>
