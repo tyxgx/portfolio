@@ -25,7 +25,7 @@
           try { theme = localStorage.getItem('archify-theme'); } catch (_) {}
         }
         if (theme !== 'light' && theme !== 'dark') {
-          theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+          theme = 'dark'; // this diagram always defaults dark, matching the portfolio site it lives on
         }
         document.documentElement.setAttribute('data-theme', theme);
       } catch (_) {}
@@ -5685,7 +5685,7 @@
         if (fromUrl) return fromUrl;
         var saved = readStored();
         if (saved === 'light' || saved === 'dark') return saved;
-        return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        return 'dark'; // always defaults dark, matching the portfolio site it lives on
       }
 
       function apply(theme) {
@@ -5709,7 +5709,8 @@
         var onChange = function (e) {
           var saved = readStored();
           if (urlOverride() || saved === 'light' || saved === 'dark') return;
-          apply(e.matches ? 'light' : 'dark');
+          // Diagram's own baseline is dark regardless of OS changes; only an
+          // explicit toggle-button click or ?theme= override should switch it.
         };
         if (media.addEventListener) media.addEventListener('change', onChange);
         else if (media.addListener) media.addListener(onChange);
