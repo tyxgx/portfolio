@@ -29,7 +29,7 @@ export const heroContent = {
   status: "Open to opportunities",
   headline: "Systems that keep running after the demo ends.",
   subtext:
-    "Data engineering, cloud infrastructure, and ML: five shipped projects, each a different real problem.",
+    "Data engineering, cloud infrastructure, and ML: seven projects, each a different real problem.",
   ctaPrimary: "See the work",
   ctaSecondary: "Download CV",
 };
@@ -56,7 +56,7 @@ export const skills: { category: string; icon: "database" | "cloud" | "brain" | 
   {
     category: "Machine Learning",
     icon: "brain",
-    items: ["scikit-learn", "pandas", "MLflow", "RAG / Vector Search", "Model Evaluation Pipelines"],
+    items: ["scikit-learn", "pandas", "MLflow", "RAG / Vector Search", "GraphRAG (Neo4j)", "Model Evaluation Pipelines"],
   },
   {
     category: "Backend & DevOps",
@@ -85,16 +85,17 @@ export const projects: Project[] = [
     id: 1,
     title: "liveflights",
     description:
-      "Real-time flight intelligence platform: live flight data streamed through Redpanda and Spark into a Delta lakehouse, modeled in dbt, scored by ML, and served to a Next.js dashboard, plus a live serverless AWS deployment of the same pipeline.",
+      "Real-time flight intelligence platform: live flight data streamed through Redpanda and Spark into a Delta lakehouse, modeled in dbt, orchestrated by Airflow, scored by ML, and served to a Next.js dashboard, plus a live serverless AWS deployment of the same pipeline.",
     shortDescription:
-      "A streaming pipeline for live aircraft data across Europe, serverless AWS deployment (Terraform), running under a few dollars a month.",
-    technologies: ["Spark", "Redpanda", "Delta Lake", "dbt", "Terraform", "AWS Lambda", "MLflow", "FastAPI", "Next.js"],
+      "A streaming pipeline for live aircraft data across Europe, serverless AWS deployment (Terraform), running for about $2 a month.",
+    technologies: ["Spark", "Redpanda", "Delta Lake", "dbt", "Airflow", "Terraform", "AWS Lambda", "MLflow", "FastAPI", "Next.js"],
     roleTags: ["Data Engineer", "Cloud Engineer"],
     highlights: [
       "Streaming lakehouse: Redpanda into Spark Structured Streaming into medallion Delta Lake, modeled with dbt into Postgres marts",
       "Fully serverless AWS deployment via Terraform, EventBridge-scheduled Lambda ingestion, S3 lake, live corridor and anomaly ML",
-      "Root-caused a real ~$155/mo DynamoDB cost bug via CloudWatch and rebuilt the live-state store on S3, cutting cost to cents",
+      "Caught a projected ~$155/mo DynamoDB write cost via CloudWatch and rebuilt the live-state store as one overwritten S3 object, about $2/mo now",
       "DBSCAN-based flight corridor discovery and anomaly detection, scored per-request against the live snapshot, no idle infra",
+      "4 Airflow DAGs (compaction, dbt, ML retraining, data-quality/drift) verified end-to-end, 9/9 tasks green, in GitHub Actions CI",
     ],
     codeLink: "https://github.com/tyxgx/liveflights",
     demoLink: "https://liveflights-prod-site-922120357133.s3.us-east-1.amazonaws.com/index.html",
@@ -116,9 +117,10 @@ export const projects: Project[] = [
       "Confidence gate refuses to answer instead of guessing when no relevant data is found",
       "Keyword-routed SQL path answers aggregate questions directly against Postgres instead of via RAG",
       "Three-tier LLM fallback chain (Groq, Gemini, local Ollama) keeps the chatbot answering if a provider's free tier runs out",
+      "My independently built AI layer of an 8-person C-DAC capstone (Global Music Intelligence Platform)",
     ],
     codeLink: "https://github.com/tyxgx/streampulse",
-    demoLink: "https://streampulse-tyxgx.duckdns.org",
+    demoLink: null,
     architectureLink: `${import.meta.env.BASE_URL}diagrams/streampulse-architecture.html`,
     featured: false,
     images: [shot('streampulse-chatbot.jpg')],
@@ -183,6 +185,45 @@ export const projects: Project[] = [
     architectureLink: `${import.meta.env.BASE_URL}diagrams/pdfdigest-architecture.html`,
     featured: false,
     images: [shot('pdfdigest-hero.jpg')],
+  },
+  {
+    id: 6,
+    title: "Hyper Quest Research Assistant",
+    description:
+      "A GraphRAG research assistant over the Yoga Sutras and the Sāṃkhya Kārikā, built as a pitch for a documentary studio: a Neo4j knowledge graph of every verse with Devanagari text, word-by-word breakdowns and commentary, plus a chat that cites its sources and refuses to fabricate Sanskrit it can't verify.",
+    shortDescription:
+      "Ask questions of two classical Sanskrit texts. Answers cite the verses, and it says so when it can't verify something.",
+    technologies: ["Neo4j", "FastAPI", "Groq", "Next.js", "TypeScript", "Vercel", "Render"],
+    roleTags: ["ML Engineer", "Data Engineer"],
+    highlights: [
+      "Neo4j knowledge graph of 195 Yoga Sutras and 73 Sāṃkhya Kārikā verses, with Devanagari text, plain-language meanings and word-by-word breakdowns",
+      "Chat answers cite their source verses and decline to invent Sanskrit that can't be verified, Groq-hosted LLM at about 5 seconds per answer",
+      "Five product views around the flagship research chat, including a graph explorer",
+      "Split-stack deployment: Next.js on Vercel, FastAPI on Render, auto-deploying from GitHub",
+    ],
+    codeLink: "https://github.com/tyxgx/hyperquest-research-assistant",
+    demoLink: null,
+    featured: false,
+    images: [],
+  },
+  {
+    id: 7,
+    title: "Seamless Tiler",
+    description:
+      "A tool that turns a single textile pattern into a seamlessly tileable texture, built for a real take-home assignment. Three versions, each fixing the previous one's visible flaw: a classical offset-and-blend, a minimum-error seam cut, and a generative inpainting pass for the hardest patterns.",
+    shortDescription: "Turn one pattern into a seamless tile. Three versions, each fixing the last one's visible flaw.",
+    technologies: ["Python", "NumPy", "Pillow", "Streamlit", "Flux Fill (Replicate)"],
+    roleTags: ["ML Engineer"],
+    highlights: [
+      "v1 offset and mirror blend showed ghosting (double-exposed motifs) on real samples, which is why it was replaced",
+      "v2 seam cut (minimum-error boundary via dynamic programming) removed the ghosting but left mirror-fold artifacts on bold, sparse patterns, documented as a structural limit of any pixel-reuse method",
+      "v3 masks the seam band and inpaints it with a generative model; a soft mask left a hazy band, fixed with a hard-edged mask (raising guidance made it worse, so it was reverted)",
+      "Streamlit UI and CLI, with a suitability check that flags images that are not real repeating patterns",
+    ],
+    codeLink: "https://github.com/tyxgx/seamless-tiler",
+    demoLink: null,
+    featured: false,
+    images: [],
   },
 ];
 
