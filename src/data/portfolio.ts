@@ -94,7 +94,7 @@ export const projects: Project[] = [
       "Streaming lakehouse: Redpanda into Spark Structured Streaming into medallion Delta Lake, modeled with dbt into Postgres marts",
       "Fully serverless AWS deployment via Terraform, EventBridge-scheduled Lambda ingestion, S3 lake, live corridor and anomaly ML",
       "Caught a projected ~$155/mo DynamoDB write cost via CloudWatch and rebuilt the live-state store as one overwritten S3 object, about $2/mo now",
-      "DBSCAN-based flight corridor discovery and anomaly detection, scored per-request against the live snapshot, no idle infra",
+      "Corridor discovery (DBSCAN), anomaly detection and traffic forecast trained on 28 days / 72M real ADS-B rows, scored per-request with no idle infra; retrained models beat the previous ones on held-out days (1,831 corridors, forecast error down 41%)",
       "4 Airflow DAGs (compaction, dbt, ML retraining, data-quality/drift) verified end-to-end, 9/9 tasks green, in GitHub Actions CI",
     ],
     codeLink: "https://github.com/tyxgx/liveflights",
