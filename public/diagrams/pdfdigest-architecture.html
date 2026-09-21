@@ -5035,7 +5035,7 @@
         <!-- Connection paths (before components for correct z-order) -->
         <path data-edge-from="users" data-edge-to="api" data-edge-label="upload PDF" data-edge-key="0" data-edge-id="users-to-api-upload" data-composition-points="180,290;270,290" d="M 180 290 L 270 290" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         <path data-edge-from="api" data-edge-to="extract" data-edge-label="on upload" data-edge-key="1" data-edge-id="api-to-extract" data-composition-points="345,260;345,154" d="M 345 260 L 345 154" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="extract" data-edge-to="chroma" data-edge-label="embed + index" data-edge-key="2" data-edge-id="extract-to-chroma" data-composition-points="420,122;500,122" d="M 420 122 L 500 122" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="extract" data-edge-to="chroma" data-edge-label="chunk + index" data-edge-key="2" data-edge-id="extract-to-chroma" data-composition-points="420,122;500,122" d="M 420 122 L 500 122" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         <path data-edge-from="api" data-edge-to="chroma" data-edge-label="retrieve on question" data-edge-key="3" data-edge-id="api-to-chroma" data-composition-points="420,292;575,292;575,154" d="M 420 292 L 567 292 Q 575 292 575 284 L 575 154" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         <path data-edge-from="api" data-edge-to="llm" data-edge-label="grounded generation" data-edge-key="4" data-edge-id="api-to-llm" data-composition-points="345,324;345,348;706,348;706,450;730,450" d="M 345 324 L 345 340 Q 345 348 353 348 L 698 348 Q 706 348 706 356 L 706 442 Q 706 450 714 450 L 730 450" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
 
@@ -5074,27 +5074,27 @@
         <text data-detail="context" x="345" y="136" class="t-muted" font-size="9" text-anchor="middle">on upload</text>
         </g>
 
-        <g id="node-chroma" data-node-id="chroma" data-node-label="ChromaDB" tabindex="0" role="button" aria-label="Focus ChromaDB, semantic index, Architecture component" aria-pressed="false" data-node-kind="database" data-node-sublabel="semantic index" data-node-context="Architecture component">
-          <title>ChromaDB · semantic index · Architecture component</title>
+        <g id="node-chroma" data-node-id="chroma" data-node-label="TF-IDF index" tabindex="0" role="button" aria-label="Focus TF-IDF index, keyword retrieval, Architecture component" aria-pressed="false" data-node-kind="database" data-node-sublabel="keyword retrieval" data-node-context="Architecture component">
+          <title>TF-IDF index · keyword retrieval · Architecture component</title>
           <rect x="500" y="90" width="150" height="64" rx="6" class="c-mask"/>
           <rect x="500" y="90" width="150" height="64" rx="6" class="c-database" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(506 96) scale(0.6875)">
             <ellipse cx="8" cy="4" rx="5" ry="2"/>
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="575" y="120" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">ChromaDB</text>
+          <text data-node-label="" data-detail-anchor="" x="575" y="120" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">TF-IDF index</text>
         <text data-detail="context" x="575" y="136" class="t-muted" font-size="9" text-anchor="middle">semantic index</text>
         </g>
 
-        <g id="node-llm" data-node-id="llm" data-node-label="Groq (Llama 3.1)" tabindex="0" role="button" aria-label="Focus Groq (Llama 3.1), grounded answers only, Architecture component" aria-pressed="false" data-node-kind="external" data-node-sublabel="grounded answers only" data-node-context="Architecture component">
-          <title>Groq (Llama 3.1) · grounded answers only · Architecture component</title>
+        <g id="node-llm" data-node-id="llm" data-node-label="Groq (gpt-oss-20b)" tabindex="0" role="button" aria-label="Focus Groq (gpt-oss-20b), grounded answers only, Architecture component" aria-pressed="false" data-node-kind="external" data-node-sublabel="grounded answers only" data-node-context="Architecture component">
+          <title>Groq (gpt-oss-20b) · grounded answers only · Architecture component</title>
           <rect x="730" y="420" width="160" height="60" rx="6" class="c-mask"/>
           <rect x="730" y="420" width="160" height="60" rx="6" class="c-external" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(736 426) scale(0.6875)">
             <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
             <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="810" y="448" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Groq (Llama 3.1)</text>
+          <text data-node-label="" data-detail-anchor="" x="810" y="448" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Groq (gpt-oss-20b)</text>
         <text data-detail="context" x="810" y="464" class="t-muted" font-size="9" text-anchor="middle">grounded answers only</text>
         </g>
 
@@ -5107,9 +5107,9 @@
           <rect x="318.4" y="240" width="53.199999999999996" height="14" rx="3" class="c-mask"/>
           <text x="345" y="250" class="t-muted" font-size="8" text-anchor="middle">on upload</text>
         </g>
-        <g data-detail="context" data-edge-from="extract" data-edge-to="chroma" data-edge-label="embed + index" data-edge-key="2" data-edge-id="extract-to-chroma">
+        <g data-detail="context" data-edge-from="extract" data-edge-to="chroma" data-edge-label="chunk + index" data-edge-key="2" data-edge-id="extract-to-chroma">
           <rect x="423.8" y="102" width="72.4" height="14" rx="3" class="c-mask"/>
-          <text x="460" y="112" class="t-muted" font-size="8" text-anchor="middle">embed + index</text>
+          <text x="460" y="112" class="t-muted" font-size="8" text-anchor="middle">chunk + index</text>
         </g>
         <g data-detail="context" data-edge-from="api" data-edge-to="chroma" data-edge-label="retrieve on question" data-edge-key="3" data-edge-id="api-to-chroma">
           <rect x="522" y="203" width="106" height="14" rx="3" class="c-mask"/>
@@ -5331,7 +5331,7 @@
           <h3>Ingestion</h3>
         </div>
         <ul>
-          <li>&bull; Text extracted, chunked, and embedded into ChromaDB on upload — no manual re-indexing step</li>
+          <li>&bull; Text extracted page by page, chunked, and indexed in memory on upload — retrieval is TF-IDF keyword ranking, not embeddings</li>
         </ul>
       </div>
 
@@ -5341,7 +5341,7 @@
           <h3>Answering</h3>
         </div>
         <ul>
-          <li>&bull; Answers are grounded in retrieved chunks via Groq-hosted Llama 3.1, not open-ended generation off the base model</li>
+          <li>&bull; Answers are grounded in retrieved chunks via Groq-hosted gpt-oss-20b, not open-ended generation off the base model</li>
         </ul>
       </div>
 
@@ -5352,7 +5352,7 @@
         </div>
         <ul>
           <li>&bull; Split-stack: Next.js frontend on Vercel, FastAPI backend on Render — not a monolith</li>
-          <li>&bull; A second, independent RAG implementation from StreamPulse (FastAPI/ChromaDB vs. Django/pgvector) — the pattern generalizes</li>
+          <li>&bull; Answers cite source pages; LLM failures return 502 and uploads are size- and type-checked</li>
         </ul>
       </div>
     </div>
