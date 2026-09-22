@@ -239,7 +239,7 @@ export const education = [
     institution: "C-DAC (Centre for Development of Advanced Computing)",
     degree: "PG Certificate Programme in Big Data Analytics",
     period: "Feb 2026 - Aug 2026",
-    details: "",
+    details: "Grade A, 72.71%",
   },
   {
     id: 1,
