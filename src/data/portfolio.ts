@@ -124,6 +124,7 @@ export const projects: Project[] = [
     ],
     codeLink: "https://github.com/tyxgx/streampulse",
     demoLink: "https://streampulse-site-922120357133.s3.ap-south-1.amazonaws.com/index.html",
+    architectureLink: `${import.meta.env.BASE_URL}diagrams/streampulse-architecture.html`,
     featured: false,
     images: [shot('streampulse-dashboard.png')],
   },
