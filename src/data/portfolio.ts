@@ -37,7 +37,7 @@ export const heroContent = {
 export const aboutContent = {
   heading: "What I actually build",
   paragraphs: [
-    "I build systems, not scripts: a streaming lakehouse that survives a mid-write process kill without losing or duplicating data, serverless AWS infrastructure re-architected around real account-level restrictions instead of stalling on them, and a RAG chatbot that refuses to answer rather than hallucinate when it doesn't know.",
+    "I build systems, not scripts: a streaming lakehouse that survives a mid-write process kill without losing or duplicating data, serverless AWS infrastructure re-architected around real account-level restrictions instead of stalling on them, and a chatbot that can only state a number if a tool actually returned it.",
     "C-DAC PG Certificate in Big Data Analytics, on top of a B.Tech in Information Technology. Currently looking at Data Engineer, Cloud Engineer, ML Engineer, and DevOps Engineer roles.",
   ],
 };
@@ -46,17 +46,17 @@ export const skills: { category: string; icon: "database" | "cloud" | "brain" | 
   {
     category: "Data Engineering",
     icon: "database",
-    items: ["Apache Spark", "Kafka / Redpanda", "dbt", "Delta Lake", "Medallion Architecture", "Apache Airflow"],
+    items: ["DuckDB", "Apache Spark", "Kafka / Redpanda", "dbt", "Delta Lake", "Medallion Architecture", "Apache Airflow"],
   },
   {
     category: "Cloud (AWS)",
     icon: "cloud",
-    items: ["Lambda", "S3", "API Gateway", "Step Functions", "EventBridge", "Glue Data Catalog", "IAM", "Terraform"],
+    items: ["Lambda", "S3", "API Gateway", "EventBridge", "DynamoDB", "CloudWatch", "IAM / GitHub OIDC", "Terraform"],
   },
   {
     category: "Machine Learning",
     icon: "brain",
-    items: ["scikit-learn", "pandas", "MLflow", "RAG / Vector Search", "GraphRAG (Neo4j)", "Model Evaluation Pipelines"],
+    items: ["PyTorch", "ONNX", "scikit-learn", "pandas / NumPy", "MLflow", "LangGraph", "RAG / Vector Search", "Model Evaluation"],
   },
   {
     category: "Backend & DevOps",
@@ -85,17 +85,18 @@ export const projects: Project[] = [
     id: 1,
     title: "liveflights",
     description:
-      "Real-time flight intelligence platform: live flight data streamed through Redpanda and Spark into a Delta lakehouse, modeled in dbt, orchestrated by Airflow, scored by ML, and served to a Next.js dashboard, plus a live serverless AWS deployment of the same pipeline.",
+      "Real-time flight intelligence platform. Live on AWS: a scheduled Lambda pulls real aircraft positions every minute into S3, a PyTorch GRU model (ONNX, served by its own Lambda) predicts each aircraft's position 5 minutes ahead and is scored against reality continuously, and a Next.js dashboard with click-to-focus and compare modes serves it all. A separate local streaming lakehouse (Redpanda, Spark, Delta, dbt, Airflow) is verified in CI.",
     shortDescription:
-      "A streaming pipeline for live aircraft data across Europe, serverless AWS deployment (Terraform), running for about $2 a month.",
-    technologies: ["Spark", "Redpanda", "Delta Lake", "dbt", "Airflow", "Terraform", "AWS Lambda", "MLflow", "FastAPI", "Next.js"],
-    roleTags: ["Data Engineer", "Cloud Engineer"],
+      "Live aircraft over Europe, updated every minute, with a PyTorch model predicting each aircraft's path. Serverless AWS (Terraform), about $2 a month.",
+    technologies: ["PyTorch", "ONNX", "AWS Lambda", "Terraform", "FastAPI", "Next.js", "Spark", "Delta Lake", "dbt", "Airflow"],
+    roleTags: ["Data Engineer", "Cloud Engineer", "ML Engineer"],
     highlights: [
-      "Streaming lakehouse: Redpanda into Spark Structured Streaming into medallion Delta Lake, modeled with dbt into Postgres marts",
-      "Fully serverless AWS deployment via Terraform, EventBridge-scheduled Lambda ingestion, S3 lake, live corridor and anomaly ML",
-      "Caught a projected ~$155/mo DynamoDB write cost via CloudWatch and rebuilt the live-state store as one overwritten S3 object, about $2/mo now",
-      "Corridor discovery (DBSCAN), anomaly detection and traffic forecast trained on 28 days / 72M real ADS-B rows, scored per-request with no idle infra; retrained models beat the previous ones on held-out days (1,831 corridors, forecast error down 41%)",
-      "4 Airflow DAGs (compaction, dbt, ML retraining, data-quality/drift) verified end-to-end, 9/9 tasks green, in GitHub Actions CI",
+      "Live on AWS: an EventBridge-scheduled Lambda pulls real flight positions every minute into S3, and FastAPI plus a Next.js map dashboard serve about 3,500 aircraft from 50+ countries, all defined in Terraform",
+      "A PyTorch GRU predicts each aircraft's position 5 minutes ahead, exported to ONNX and served by its own Lambda; every prediction is scored against the real position later, with a live median error of about 1-1.5 km",
+      "Corridor discovery (DBSCAN), anomaly detection and a traffic forecast trained on 28 days / 72M real ADS-B rows (1,831 corridors; hourly forecast error 86 flights vs 568 for a naive baseline)",
+      "Fixed real production bugs found on live traffic: a Lambda timeout (batched inference), an out-of-memory error (lazy loading) and impossible speeds caused by aircraft-address collisions (a plausibility guard)",
+      "Caught a projected ~$155/mo DynamoDB write cost via CloudWatch and rebuilt the live state as one overwritten S3 object, about $2/mo now; CloudWatch alarms and AWS budgets watch the rest",
+      "Local streaming lakehouse (Redpanda, Spark Structured Streaming, Delta Lake, dbt) with 4 Airflow DAGs, verified end to end in GitHub Actions CI (9/9 tasks green)",
     ],
     codeLink: "https://github.com/tyxgx/liveflights",
     demoLink: "https://liveflights-prod-site-922120357133.s3.us-east-1.amazonaws.com/index.html",
@@ -107,25 +108,24 @@ export const projects: Project[] = [
     id: 2,
     title: "StreamPulse",
     description:
-      "A Django web app with a Spotify streaming-analytics dashboard and a RAG chatbot that answers natural-language questions grounded in real data, backed by Postgres and pgvector.",
+      "A serverless analytics platform for daily Spotify charts across 72 markets: a daily pipeline builds a Bronze/Silver/Gold lake on S3, a static dashboard shows it, and a LangGraph chatbot answers questions using only deterministic tools and a number verifier.",
     shortDescription:
-      "A Spotify analytics dashboard with a chatbot that answers questions about the data. It says it doesn't know instead of guessing.",
-    technologies: ["Django", "PostgreSQL", "pgvector", "SentenceTransformers", "Groq", "AWS EC2"],
+      "Daily Spotify chart analytics for 72 markets, with a chatbot whose every number is checked against the data.",
+    technologies: ["LangGraph", "DuckDB", "AWS Lambda", "S3", "DynamoDB", "Terraform", "GitHub Actions", "Chart.js"],
     roleTags: ["Data Engineer", "ML Engineer"],
     highlights: [
-      "RAG pipeline: gold data chunked into sentences, embedded with all-MiniLM-L6-v2, retrieved via pgvector's ivfflat index",
-      "Confidence gate refuses to answer instead of guessing when no relevant data is found",
-      "Keyword-routed SQL path answers aggregate questions directly against Postgres instead of via RAG",
-      "Three-tier LLM fallback chain (Groq, Gemini, local Ollama) keeps the chatbot answering if a provider's free tier runs out",
-      "Daily refresh rebuilt as a serverless DuckDB pipeline on GitHub Actions (~42.8M source rows); rebuilt Gold matched the old tables on 7,313/7,313 rows",
-      "Live demo is a lightweight re-host for a free 512 MB server (int8 vectors + SQLite + DuckDB, vector-only retrieval), verified under a 512 MB limit in CI",
-      "My independently built AI layer of an 8-person C-DAC capstone (Global Music Intelligence Platform)",
+      "Medallion lake on S3: append-only Bronze with row-hash change detection (44.6M raw rows, 72 markets), Silver rebuilt from Bronze and fully replayable, Gold tables, and a Gold-vs-Silver reconciliation on every run",
+      "Daily pipeline on GitHub Actions with DuckDB (about 7 minutes), authenticated by GitHub OIDC instead of stored AWS keys; all infrastructure in Terraform",
+      "Static dashboard (home plus 9 views, 72 country pages) built from about 8 MB of precomputed JSON, so visitors trigger no queries; a data-health page shows freshness and quality checks",
+      "LangGraph chatbot on AWS Lambda: 10 deterministic DuckDB tools produce every number, a verifier rejects any figure a tool did not return, with injection guardrails, DynamoDB rate limits and a Groq/Gemini fallback",
+      "Evaluated on a 38-question golden set whose expected answers come from independent SQL (38/38 pass); a small set, so it is a regression check, not a benchmark",
+      "Found and fixed a non-deterministic aggregation (artist counts changed between runs on the same data), now covered by 11 pipeline tests",
+      "The idea and original Gold-layer design came from an 8-person C-DAC capstone; the serverless pipeline, dashboard, chatbot and deployment are my own work. The first version (Django and pgvector RAG on EC2) is documented in the repo",
     ],
     codeLink: "https://github.com/tyxgx/streampulse",
-    demoLink: "https://streampulse-demo.onrender.com",
-    architectureLink: `${import.meta.env.BASE_URL}diagrams/streampulse-architecture.html`,
+    demoLink: "https://streampulse-site-922120357133.s3.ap-south-1.amazonaws.com/index.html",
     featured: false,
-    images: [shot('streampulse-chatbot.jpg')],
+    images: [shot('streampulse-dashboard.png')],
   },
   {
     id: 3,
@@ -236,9 +236,9 @@ export const projects: Project[] = [
 export const education = [
   {
     id: 0,
-    institution: "C-DAC (Centre for Development of Advanced Computing)",
+    institution: "C-DAC (Centre for Development of Advanced Computing), Mumbai",
     degree: "PG Certificate Programme in Big Data Analytics",
-    period: "Feb 2026 - Aug 2026",
+    period: "Feb 2026 - Sep 2026",
     details: "Grade A, 72.71%",
   },
   {
