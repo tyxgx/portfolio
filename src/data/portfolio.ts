@@ -270,14 +270,14 @@ export const experience = [
     id: 1,
     title: "Full Stack Developer Intern",
     company: "Unlock Discounts, Bangalore (Remote)",
-    period: "Jul 2024 - Oct 2024",
+    period: "Jul 2025 - Oct 2025",
     summary: "Built features, worked with APIs, learned how real teams ship code.",
   },
   {
     id: 2,
     title: "Project Intern",
     company: "BHEL, Haridwar",
-    period: "Jul 2024 - Aug 2024",
+    period: "Jul 2025 - Aug 2025",
     summary: "Built a web portal, learned about working inside a large organization.",
   },
 ];
