@@ -29,7 +29,7 @@ export const heroContent = {
   status: "Open to opportunities",
   headline: "Systems that keep running after the demo ends.",
   subtext:
-    "Data engineering, cloud infrastructure, and ML: seven projects, each a different real problem.",
+    "Data engineering, cloud infrastructure, and ML: six projects, each a different real problem.",
   ctaPrimary: "See the work",
   ctaSecondary: "Download CV",
 };
@@ -127,29 +127,6 @@ export const projects: Project[] = [
     architectureLink: `${import.meta.env.BASE_URL}diagrams/streampulse-architecture.html`,
     featured: false,
     images: [shot('streampulse-dashboard.png')],
-  },
-  {
-    id: 3,
-    title: "Interactive ML",
-    description:
-      "An educational ML platform that exposes every stage of a scikit-learn pipeline, load, split, preprocess, train, predict, evaluate, as an independently inspectable step instead of one black-box predict button.",
-    shortDescription:
-      "Explore an ML pipeline step by step, load, preprocess, train, evaluate, instead of one black-box button. Works with your own CSV too.",
-    technologies: ["FastAPI", "scikit-learn", "Pyodide", "pytest", "Selenium", "Next.js", "TypeScript", "Tailwind CSS"],
-    roleTags: ["ML Engineer"],
-    highlights: [
-      "Every pipeline stage runs as an independent, inspectable step, or the whole pipeline in one click",
-      "Leakage-safe preprocessing: the ColumnTransformer is fit only on the training split, never the test split",
-      "Fair multi-algorithm comparison, every candidate scored against an identical train/test split",
-      "Schema-driven auto-preprocessing routes built-in datasets and uploaded CSVs through the same code path",
-      "Python backend runs in the browser: the same FastAPI code executes in a Pyodide Web Worker, so no server cold starts",
-      "Model diagnostics (learning curve, ROC/PR, residuals, permutation importance), 38 pytest tests, GitHub Actions CI and a Selenium suite run through Jenkins",
-    ],
-    codeLink: "https://github.com/tyxgx/interactive-ml",
-    demoLink: "https://interactive-ml-kappa.vercel.app/",
-    architectureLink: `${import.meta.env.BASE_URL}diagrams/interactive-ml-architecture.html`,
-    featured: false,
-    images: [shot('interactive-ml-pipeline.png'), shot('interactive-ml-comparison.png')],
   },
   {
     id: 4,
