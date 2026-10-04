@@ -666,3 +666,20 @@ hr {
     border: 1px solid var(--border-color);
     border-radius: 6px;
 }
+
+/* case-study pages */
+.case h1 { margin-bottom: 0.5rem; }
+.case-back { margin: 0 0 1.5rem; font-size: 0.9rem; }
+.case-links { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; margin: 1.5rem 0 2.5rem; }
+.case h2 { margin-top: 2.5rem; }
+.case-steps { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 1.1rem; counter-reset: step; }
+.case-steps li { display: grid; gap: 0.2rem; padding-left: 1.4rem; border-left: 1px solid var(--border-color); counter-increment: step; }
+.case-steps li strong::before { content: counter(step) ". "; opacity: 0.6; }
+.case-steps li span { opacity: 0.85; }
+.case-problems { display: grid; gap: 0.9rem; margin-top: 1rem; }
+.case-problems p { margin: 0; }
+.case-numbers { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: 1.2rem; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color); }
+.case-numbers div { display: grid; gap: 0.15rem; }
+.case-numbers strong { font-size: 1.4rem; }
+.case-numbers span { font-size: 0.85rem; opacity: 0.75; }
+.case h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); margin-bottom: 0.4rem; }

@@ -1,15 +1,9 @@
 import { useEffect, useState } from 'react';
-import {
-  personalInfo,
-  projects,
-  experience,
-  education,
-  ctaContent,
-} from './data/portfolio';
+import { personalInfo, projects, experience, education } from './data/portfolio';
+import { caseStudies } from './data/caseStudies';
 
 type Theme = 'light' | 'dark';
 
-const GH_USER = 'tyxgx';
 const ext = { target: '_blank', rel: 'noopener noreferrer' } as const;
 
 const readTheme = (): Theme => {
@@ -22,24 +16,12 @@ const readTheme = (): Theme => {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 };
 
-const principles = [
-  {
-    title: 'design for the failure.',
-    text: 'a pipeline that survives a mid-write kill without losing or duplicating data beats one that only works on a clean run.',
-  },
-  {
-    title: 'say "i don’t know".',
-    text: 'a chatbot that refuses to answer when retrieval finds nothing is more useful than one that confidently guesses.',
-  },
-  {
-    title: 'chase the real cause.',
-    text: 'a surprise cloud bill is a debugging problem: trace it to the service, fix the design, verify the number dropped.',
-  },
-];
+// "#/liveflights" is a case-study page; anything else ("", "#work", "#contact") is the landing page.
+const readRoute = () => (location.hash.startsWith('#/') ? location.hash.slice(2) : '');
 
 function App() {
   const [theme, setTheme] = useState<Theme>(readTheme);
-  const [progress, setProgress] = useState(0);
+  const [route, setRoute] = useState(readRoute);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -51,27 +33,30 @@ function App() {
   }, [theme]);
 
   useEffect(() => {
-    const onScroll = () => {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(max > 0 ? (window.scrollY / max) * 100 : 0);
-    };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    const onHash = () => setRoute(readRoute());
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
   }, []);
 
-  const featured = projects.slice(0, 3);
-  const more = projects.slice(3);
-  const chart = `https://ghchart.xqsit94.in/${theme}:${theme === 'dark' ? '34d399' : '10b981'}/${GH_USER}`;
+  // After a route change: top of a case study, or the section a plain "#id" link points to.
+  useEffect(() => {
+    const id = location.hash.startsWith('#/') ? '' : location.hash.slice(1);
+    const el = id ? document.getElementById(id) : null;
+    if (el) el.scrollIntoView();
+    else window.scrollTo(0, 0);
+  }, [route]);
+
+  const study = caseStudies.find((c) => c.slug === route);
+  const featured = projects.filter((p) => caseStudies.some((c) => c.title === p.title));
+  const more = projects.filter((p) => !caseStudies.some((c) => c.title === p.title));
 
   return (
     <>
       <a href="#main-content" className="skip-link">Skip to main content</a>
-      <progress className="scroll-progress" max={100} value={progress} aria-label="Reading progress" />
 
       <header className="site-header">
         <nav className="nav" aria-label="Primary navigation">
-          <a href="#home" aria-current="page">home</a>
+          <a href="#home">home</a>
           <a href="#work">work</a>
           <a href="#experience">experience</a>
           <a href="#contact">contact</a>
@@ -87,178 +72,164 @@ function App() {
       </header>
 
       <main className="page" id="main-content">
-        <section id="home" className="hero" aria-label="Introduction">
-          <p className="eyebrow">data · cloud · ml engineer</p>
-          <h1>hi i&apos;m uttkarsh.</h1>
-          <p className="lede">
-            i build data pipelines, cloud infrastructure, and ML systems that keep running after the demo ends.
-          </p>
-          <p>
-            i just finished C-DAC&apos;s PG Certificate in Big Data Analytics, on top of a B.Tech in Information
-            Technology. i work across streaming, serverless AWS, retrieval, and the ordinary engineering that makes
-            those systems trustworthy.
-          </p>
-          <p>
-            lately: a live streaming lakehouse (<a href="#work">liveflights</a>), a RAG chatbot that says when it
-            doesn&apos;t know (<a href="#work">StreamPulse</a>), and looking for a Data Engineer, Cloud Engineer, or ML
-            Engineer role.
-          </p>
-          <p className="hero-links">
-            <a href={personalInfo.cv} {...ext}>cv ↗</a>
-            <a href={`mailto:${personalInfo.email}`}>email</a>
-          </p>
-        </section>
+        {study ? (
+          <article className="case" aria-labelledby="case-title">
+            <p className="case-back"><a href="#work">← all work</a></p>
+            <p className="eyebrow">case study</p>
+            <h1 id="case-title">{study.title}</h1>
+            <p className="lede">{study.tagline}</p>
+            <p>{study.why}</p>
 
-        <section className="proof-ledger" aria-label="Selected evidence">
-          <div className="proof-item">
-            <strong>5</strong>
-            <span>shipped projects, each a different real problem</span>
-          </div>
-          <div className="proof-item">
-            <strong>~$155 → cents</strong>
-            <span>monthly cost of liveflights&apos; live-state store after a root-cause fix</span>
-          </div>
-          <div className="proof-item">
-            <strong>~60%</strong>
-            <span>fewer API calls in TeamBoard from multi-tier caching</span>
-          </div>
-        </section>
+            <p className="case-links">
+              {study.links.map((l) => (
+                <a key={l.label} href={l.href} {...ext}>{l.label} ↗</a>
+              ))}
+            </p>
 
-        <section className="github-activity" aria-labelledby="github-activity-heading">
-          <div className="activity-heading">
-            <div>
-              <p className="section-kicker">live signal</p>
-              <h2 id="github-activity-heading">github activity.</h2>
-            </div>
-            <a className="activity-profile" href={personalInfo.github} {...ext}>@{GH_USER} ↗</a>
-          </div>
-          <div className="chart-shell">
-            <img
-              className="github-chart"
-              src={chart}
-              alt={`${personalInfo.name}'s GitHub contribution chart for the rolling year`}
-              decoding="async"
-              referrerPolicy="no-referrer"
-            />
-          </div>
-          <p className="activity-note">rolling 12 months · refreshed daily from public GitHub activity</p>
-        </section>
+            <section aria-labelledby="how-h">
+              <h2 id="how-h">how it works.</h2>
+              <ol className="case-steps">
+                {study.how.map((h) => (
+                  <li key={h.title}>
+                    <strong>{h.title}</strong>
+                    <span>{h.text}</span>
+                  </li>
+                ))}
+              </ol>
+            </section>
 
-        <hr />
+            <section aria-labelledby="problems-h">
+              <h2 id="problems-h">what went wrong, and what i did.</h2>
+              <div className="case-problems">
+                {study.problems.map((p) => (
+                  <p key={p.title}>
+                    <strong>{p.title}.</strong> {p.text}
+                  </p>
+                ))}
+              </div>
+            </section>
 
-        <section id="work" aria-labelledby="work-heading">
-          <p className="section-kicker">selected work</p>
-          <h2 id="work-heading">systems with receipts.</h2>
-          <p className="section-intro">
-            a small set of things i can explain end to end: why they exist, where they fail, and what makes them more
-            than a demo.
-          </p>
-
-          <div className="featured-work">
-            {featured.map((p) => (
-              <article className="work-card" key={p.id}>
-                <div className="work-heading">
-                  <div>
-                    <p className="work-type">{p.roleTags.join(' · ').toLowerCase()} · 2026</p>
-                    <h3>{p.title}</h3>
-                  </div>
-                  <div className="work-links">
-                    {p.demoLink && <a href={p.demoLink} {...ext}>live ↗</a>}
-                    <a href={p.codeLink} {...ext}>source ↗</a>
-                    {p.architectureLink && <a href={p.architectureLink} {...ext}>architecture ↗</a>}
-                  </div>
+            <section className="case-numbers" aria-label="Key numbers">
+              {study.numbers.map((n) => (
+                <div key={n.label}>
+                  <strong>{n.value}</strong>
+                  <span>{n.label}</span>
                 </div>
-                <p className="work-thesis">{p.shortDescription}</p>
-                {p.images[0] && (
-                  <img className="work-shot" src={p.images[0]} alt={`${p.title} screenshot`} loading="lazy" />
-                )}
-                <p>{p.description}</p>
-                <ul className="evidence-list">
-                  {p.highlights.slice(0, 3).map((h) => (
-                    <li key={h}>{h}</li>
-                  ))}
-                </ul>
-                <p className="stack">{p.technologies.join(' · ')}</p>
-              </article>
-            ))}
-          </div>
-
-          <section className="more-work" aria-label="More projects">
-            {more.map((p) => (
-              <article className="compact-work" key={p.id}>
-                <div>
-                  <h3>
-                    <a href={p.demoLink ?? p.codeLink} {...ext}>{p.title} ↗</a>
-                  </h3>
-                  <p>{p.shortDescription}</p>
-                </div>
-                <a className="source-link" href={p.codeLink} {...ext}>source</a>
-              </article>
-            ))}
-          </section>
-        </section>
-
-        <hr />
-
-        <section id="experience" aria-labelledby="experience-heading">
-          <p className="section-kicker">experience &amp; education</p>
-          <h2 id="experience-heading">where i learned the edges.</h2>
-          <div className="experience-list">
-            {experience.map((e) => (
-              <article className="experience-item" key={e.id}>
-                <div className="experience-meta">
-                  <strong>{e.company.split(',')[0]}</strong>
-                  <span>{e.period}</span>
-                </div>
-                <div>
-                  <h3>{e.title}</h3>
-                  <p>{e.summary}</p>
-                </div>
-              </article>
-            ))}
-            {education.slice(0, 2).map((e) => (
-              <article className="experience-item" key={e.id}>
-                <div className="experience-meta">
-                  <strong>{e.institution.split(' (')[0].split(',')[0]}</strong>
-                  <span>{e.period}</span>
-                </div>
-                <div>
-                  <h3>{e.degree}</h3>
-                  {e.details && <p>{e.details}</p>}
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <hr />
-
-        <section className="principles" aria-labelledby="principles-heading">
-          <p className="section-kicker">how i work</p>
-          <h2 id="principles-heading">built to hold up.</h2>
-          <div className="principles-grid">
-            {principles.map((p) => (
-              <p key={p.title}>
-                <strong>{p.title}</strong> {p.text}
+              ))}
+            </section>
+          </article>
+        ) : (
+          <>
+            <section id="home" className="hero" aria-label="Introduction">
+              <p className="eyebrow">data · cloud · ml engineer</p>
+              <h1>hi i&apos;m uttkarsh.</h1>
+              <p className="lede">
+                i build data pipelines, cloud infrastructure and ML systems, and i like showing exactly how they work.
               </p>
-            ))}
-          </div>
-        </section>
+              <p>
+                C-DAC PG Certificate in Big Data Analytics (Mumbai, 2026) on top of a B.Tech in Information Technology.
+                looking for a Data Engineer, Cloud Engineer or ML Engineer role.
+              </p>
+              <p className="hero-links">
+                <a href={personalInfo.cv} {...ext}>cv ↗</a>
+                <a href={`mailto:${personalInfo.email}`}>email</a>
+                <a href={personalInfo.github} {...ext}>github ↗</a>
+              </p>
+            </section>
 
-        <hr />
+            <hr />
 
-        <section id="contact" aria-labelledby="contact-heading">
-          <p className="section-kicker">contact</p>
-          <h2 id="contact-heading">say hi.</h2>
-          <p>{ctaContent.description}</p>
-          <p className="contact-links">
-            <a href={`mailto:${personalInfo.email}`}>email</a>
-            <a href={personalInfo.github} {...ext}>github</a>
-            <a href={personalInfo.linkedin} {...ext}>linkedin</a>
-            <a href={personalInfo.cv} {...ext}>cv</a>
-          </p>
-          <p className="last-updated">last updated september 2026.</p>
-        </section>
+            <section id="work" aria-labelledby="work-heading">
+              <p className="section-kicker">work</p>
+              <h2 id="work-heading">two projects, explained.</h2>
+              <p className="section-intro">
+                both run live on AWS. each has a short page that shows where the data comes from, how it is processed and
+                what went wrong along the way.
+              </p>
+
+              <div className="featured-work">
+                {featured.map((p) => {
+                  const c = caseStudies.find((s) => s.title === p.title)!;
+                  return (
+                    <article className="work-card" key={p.id}>
+                      <div className="work-heading">
+                        <h3>{p.title}</h3>
+                        <div className="work-links">
+                          <a href={`#/${c.slug}`}>how it works →</a>
+                          {p.demoLink && <a href={p.demoLink} {...ext}>live ↗</a>}
+                          <a href={p.codeLink} {...ext}>source ↗</a>
+                        </div>
+                      </div>
+                      <p className="work-thesis">{p.shortDescription}</p>
+                      <p className="stack">{c.numbers.map((n) => `${n.value} ${n.label}`).join(' · ')}</p>
+                    </article>
+                  );
+                })}
+              </div>
+
+              <section className="more-work" aria-label="More projects">
+                {more.map((p) => (
+                  <article className="compact-work" key={p.id}>
+                    <div>
+                      <h3>
+                        <a href={p.demoLink ?? p.codeLink} {...ext}>{p.title} ↗</a>
+                      </h3>
+                      <p>{p.shortDescription}</p>
+                    </div>
+                    <a className="source-link" href={p.codeLink} {...ext}>source</a>
+                  </article>
+                ))}
+              </section>
+            </section>
+
+            <hr />
+
+            <section id="experience" aria-labelledby="experience-heading">
+              <p className="section-kicker">experience &amp; education</p>
+              <h2 id="experience-heading">where i learned the edges.</h2>
+              <div className="experience-list">
+                {experience.map((e) => (
+                  <article className="experience-item" key={e.id}>
+                    <div className="experience-meta">
+                      <strong>{e.company.split(',')[0]}</strong>
+                      <span>{e.period}</span>
+                    </div>
+                    <div>
+                      <h3>{e.title}</h3>
+                      <p>{e.summary}</p>
+                    </div>
+                  </article>
+                ))}
+                {education.slice(0, 2).map((e) => (
+                  <article className="experience-item" key={e.id}>
+                    <div className="experience-meta">
+                      <strong>{e.institution.split(' (')[0].split(',')[0]}</strong>
+                      <span>{e.period}</span>
+                    </div>
+                    <div>
+                      <h3>{e.degree}</h3>
+                      {e.details && <p>{e.details}</p>}
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <hr />
+
+            <section id="contact" aria-labelledby="contact-heading">
+              <p className="section-kicker">contact</p>
+              <h2 id="contact-heading">say hi.</h2>
+              <p className="contact-links">
+                <a href={`mailto:${personalInfo.email}`}>email</a>
+                <a href={personalInfo.github} {...ext}>github</a>
+                <a href={personalInfo.linkedin} {...ext}>linkedin</a>
+                <a href={personalInfo.cv} {...ext}>cv</a>
+              </p>
+              <p className="last-updated">last updated october 2026.</p>
+            </section>
+          </>
+        )}
       </main>
     </>
   );
