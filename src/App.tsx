@@ -167,7 +167,7 @@ function App() {
         <hr />
 
         <section id="contact" aria-labelledby="contact-heading">
-          <h2 id="contact-heading">say hi.</h2>
+          <h2 id="contact-heading">let's talk.</h2>
           <p className="contact-links">
             <a href={`mailto:${personalInfo.email}`}>email</a>
             <a href={personalInfo.github} {...ext}>github</a>
