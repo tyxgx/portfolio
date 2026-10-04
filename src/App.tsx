@@ -168,6 +168,10 @@ function App() {
 
         <section id="contact" aria-labelledby="contact-heading">
           <h2 id="contact-heading">let's talk.</h2>
+          <p className="contact-details">
+            <a href={`mailto:${personalInfo.email}`}>{personalInfo.email}</a>
+            <a href="tel:+919193399551">{personalInfo.phone}</a>
+          </p>
           <p className="contact-links">
             <a href={`mailto:${personalInfo.email}`}>email</a>
             <a href={personalInfo.github} {...ext}>github</a>
