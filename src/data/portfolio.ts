@@ -29,7 +29,7 @@ export const heroContent = {
   status: "Open to opportunities",
   headline: "Systems that keep running after the demo ends.",
   subtext:
-    "Data engineering, cloud infrastructure, and ML: six projects, each a different real problem.",
+    "Data engineering, cloud infrastructure, and ML: seven projects, each a different real problem.",
   ctaPrimary: "See the work",
   ctaSecondary: "Download CV",
 };
@@ -78,6 +78,11 @@ export interface Project {
   architectureLink?: string;
   featured: boolean;
   images: string[];
+  /** major projects only: what the card shows */
+  tagline?: string;
+  bullets?: string[];
+  screenshot?: string;
+  architectureImage?: string;
 }
 
 export const projects: Project[] = [
@@ -101,6 +106,14 @@ export const projects: Project[] = [
     codeLink: "https://github.com/tyxgx/liveflights",
     demoLink: "https://liveflights-prod-site-922120357133.s3.us-east-1.amazonaws.com/index.html",
     architectureLink: `${import.meta.env.BASE_URL}diagrams/liveflights-architecture.html`,
+    tagline: "Live aircraft over Europe, refreshed every minute, with a model that predicts where each one will be in five minutes.",
+    bullets: [
+      "About 3,700 aircraft on the map at a time, real positions from a volunteer receiver network",
+      "PyTorch GRU model (ONNX) predicts each position 5 minutes ahead and is scored against reality, live",
+      "Serverless AWS built with Terraform, about $2 a month",
+    ],
+    screenshot: shot('liveflights-map.jpg'),
+    architectureImage: shot('liveflights-arch.png'),
     featured: true,
     images: [shot('liveflights-dashboard.png'), shot('liveflights-corridors.png')],
   },
@@ -125,8 +138,39 @@ export const projects: Project[] = [
     codeLink: "https://github.com/tyxgx/streampulse",
     demoLink: "https://streampulse-site-922120357133.s3.ap-south-1.amazonaws.com/index.html",
     architectureLink: `${import.meta.env.BASE_URL}diagrams/streampulse-architecture.html`,
-    featured: false,
+    tagline: "Daily Spotify charts for 72 markets, rebuilt every morning, with a chatbot whose every number is checked.",
+    bullets: [
+      "43.9 million chart rows since 2017, refreshed daily on AWS",
+      "Bronze, Silver and Gold layers on S3, rebuilt from raw data whenever needed",
+      "Chatbot answers only from fixed data tools, and every figure is verified (41 of 41 test questions pass)",
+    ],
+    screenshot: shot('streampulse-home.jpg'),
+    architectureImage: shot('streampulse-arch.png'),
+    featured: true,
     images: [shot('streampulse-dashboard.png')],
+  },
+  {
+    id: 3,
+    title: "Interactive ML",
+    description:
+      "An educational ML platform that exposes every stage of a scikit-learn pipeline, load, split, preprocess, train, predict, evaluate, as an independently inspectable step instead of one black-box predict button.",
+    shortDescription:
+      "Explore an ML pipeline step by step, load, preprocess, train, evaluate, instead of one black-box button. Works with your own CSV too.",
+    technologies: ["FastAPI", "scikit-learn", "Pyodide", "pytest", "Selenium", "Next.js", "TypeScript", "Tailwind CSS"],
+    roleTags: ["ML Engineer"],
+    highlights: [
+      "Every pipeline stage runs as an independent, inspectable step, or the whole pipeline in one click",
+      "Leakage-safe preprocessing: the ColumnTransformer is fit only on the training split, never the test split",
+      "Fair multi-algorithm comparison, every candidate scored against an identical train/test split",
+      "Schema-driven auto-preprocessing routes built-in datasets and uploaded CSVs through the same code path",
+      "Python backend runs in the browser: the same FastAPI code executes in a Pyodide Web Worker, so no server cold starts",
+      "Model diagnostics (learning curve, ROC/PR, residuals, permutation importance), 38 pytest tests, GitHub Actions CI and a Selenium suite run through Jenkins",
+    ],
+    codeLink: "https://github.com/tyxgx/interactive-ml",
+    demoLink: "https://interactive-ml-kappa.vercel.app/",
+    architectureLink: `${import.meta.env.BASE_URL}diagrams/interactive-ml-architecture.html`,
+    featured: false,
+    images: [shot('interactive-ml-pipeline.png'), shot('interactive-ml-comparison.png')],
   },
   {
     id: 4,
@@ -268,3 +312,13 @@ export const ctaContent = {
 export const footerContent = {
   text: "(c) 2026 Uttkarsh Tyagi.",
 };
+
+export const lastUpdated = "4 october 2026";
+
+/** Education and work path, in order. `highlight` marks the current programme. */
+export const path = [
+  { id: 'btech', title: 'B.Tech', detail: 'Information Technology', place: 'Uttarakhand Technical University', period: '2021 – 2025' },
+  { id: 'bhel', title: 'BHEL', detail: 'Project internship', place: 'Haridwar', period: 'Jul – Aug 2025' },
+  { id: 'unlock', title: 'Unlock Discounts', detail: 'Full stack developer internship', place: 'Remote', period: 'Jul – Oct 2025' },
+  { id: 'cdac', title: 'C-DAC', detail: 'PG Certificate in Big Data Analytics', place: 'Mumbai', period: 'Feb – Sep 2026', note: 'Grade A, 72.71%', highlight: true },
+];
